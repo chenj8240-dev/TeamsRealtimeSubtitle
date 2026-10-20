@@ -18,6 +18,7 @@
 
 - 上游快照位于 [`app/`](app/)，固定基线为 Live-translation v1.7.1 / commit `2b525525b5a5125f27a9ffad75ac90e766748060`。
 - 上游已经实现 Windows 系统播放设备回环，以及在 Windows build 20348 及以上选择单个应用的能力；当前设备 build 19045 应使用系统设备混音模式。
+- 当前工作分支把新安装默认输入改为系统声音，并保持本机 Whisper 字幕；打开应用不会自动开始采集。
 - 上游 README 声明 Windows 11；尚未在本机验证 Win10 构建、安装包最低系统版本或真实音频采集。
 - 上游的本机 Whisper 翻译目标是英语；中文离线翻译尚未实现。本地模型选型与实现仍按 `AGENT_TASKS.md` 的 T06/T07 执行。
 - 本仓库保留原始上游许可与来源，见 [`UPSTREAM_AUDIT.md`](UPSTREAM_AUDIT.md)。

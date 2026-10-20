@@ -7,10 +7,12 @@ import { readStored } from './persisted';
 import { isLocalWhisper, providerCanTranslate } from './providers';
 import { AUDIO_SOURCES, OUTPUT_MODES, PROVIDERS, WHISPER_MODELS, type StartOptions } from './types';
 
-/** Fresh-install setup for local speech recognition. The user downloads a model before
- *  starting; opening the app never starts a download or audio capture. */
+/** Fresh-install setup for local speech recognition of system audio. The user downloads a
+ *  model before starting; opening the app never starts a download or audio capture. */
 export const DEFAULT_START_OPTIONS: StartOptions = {
-	source: 'microphone',
+	// The cross-app tool captions what is playing on the selected output device by default.
+	// This is the device mix, not a guarantee of per-application isolation.
+	source: 'system',
 	mode: 'transcribe',
 	targetLanguage: 'en',
 	provider: 'whisper',

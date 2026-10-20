@@ -1,5 +1,14 @@
 # Live Translation & Subtitles
 
+> **Personal Windows 10 adaptation in progress.** This directory is based on upstream v1.7.1.
+> Windows 10 build 19045 support has not yet been verified. Fresh installs in this branch use
+> system output audio and local Whisper transcription by default. System output mode captures
+> the selected device mix; it does not isolate one application. Chinese offline translation is
+> not implemented yet.
+
+Upstream source and license details are recorded in the parent repository's
+[`UPSTREAM_AUDIT.md`](../UPSTREAM_AUDIT.md).
+
 Live captions over your meetings, video calls and slides. Transcribe speech locally with
 **Whisper**, or translate it — into English locally with Whisper, or into many languages with
 **Google Gemini** or **OpenAI** — in a transparent Windows overlay.
