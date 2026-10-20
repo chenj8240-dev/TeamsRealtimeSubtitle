@@ -1,0 +1,152 @@
+# idle-demo · en · 225% · 1200×820
+# path { property: computed value } — inherited properties where they differ from
+# the parent, the rest where they differ from the same element unstyled.
+html { font-family: Archivo, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 36px; color: #ffffff; height: 100% }
+body { color: #e9ebef; height: 100%; margin: 0px; background-color: #0e1013 }
+body › div { display: contents }
+body › div › div.app { display: grid; height: 820px; background-color: #0e1013 }
+header.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 27px; padding: 18px 54px; background-color: #111419 }
+header.toolbar › span.brand { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 54px; height: 54px; border: 1px solid #262b33; border-radius: 21.875%; background-image: linear-gradient(#191d23, #0e1013) }
+header.toolbar › span.brand › svg { display: block; width: 18px; height: 18px }
+header.toolbar › h1.sr-only "Live Translation & Subtitles" { font-size: 72px; font-weight: 700; white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+header.toolbar › div.session-controls { display: contents }
+header.toolbar › div.session-controls › button.ui-tool.primary.lg.start "Start demo subtitles" { font-size: 31.5px; font-weight: 600; line-height: 1; text-align: center; color: #05271b; display: flex; align-items: center; justify-content: center; gap: 18px; min-width: 0px; max-width: 100%; padding: 18px 54px; border: 1px solid rgba(0, 0, 0, 0); border-radius: 4px; background-color: rgba(0, 0, 0, 0); background-image: linear-gradient(#5ad1a0, #43b989) }
+header.toolbar … button.ui-tool.primary.lg.start "Start demo subtitles" › svg { display: block; width: 14px; height: 14px }
+header.toolbar › div.session-controls › button.ui-tool.ghost.lg "Rehearse" { font-size: 31.5px; font-weight: 600; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 18px; min-width: 0px; max-width: 100%; padding: 18px 54px; border: 1px solid #262b33; border-radius: 4px; background-color: rgba(0, 0, 0, 0); opacity: 0.5 }
+header.toolbar … button.ui-tool.ghost.lg "Rehearse" › svg { display: block; width: 14px; height: 14px }
+header.toolbar › div.pill.neutral { display: flex; align-items: center; flex: 0 0 auto; gap: 18px; padding: 9px 18px; margin: 0px 0px 0px auto; border: 1px solid #262b33; border-radius: 999px; background-color: #191d23 }
+header.toolbar › div.pill.neutral › span.pill-dot { display: block; width: 7px; height: 7px; border-radius: 50%; background-color: #6b7382 }
+header.toolbar › div.pill.neutral › span.pill-label { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; display: block }
+header.toolbar › button.ui-tool.icon "Open settings" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 18px; width: 72px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid rgba(0, 0, 0, 0); border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+header.toolbar … button.ui-tool.icon "Open settings" › svg { display: block; width: 16px; height: 16px }
+body › div › div.app › div.rule { background-color: #1f242b }
+body › div › div.app › p.sr-only[role=status]:nth(1) { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+body › div › div.app › p.sr-only[role=status]:nth(2) { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+body › div › div.app › div.body { display: grid; grid-template-columns: minmax(0px, 1fr); overflow: auto }
+aside.rail { display: flex; flex-direction: column; gap: 36px; padding: 54px; border-bottom: 1px solid #1f242b; background-color: #111419 }
+aside.rail › section.profiles "Meeting profiles" { font-size: 27px; color: #c3c9d2; min-width: 0px; max-width: 855px; padding: 0px 0px 36px; border-bottom: 1px solid #1f242b }
+aside.rail … section.profiles "Meeting profiles" › div.picker { display: grid; align-items: stretch; grid-template-columns: minmax(0px, 1fr) auto; gap: 18px }
+aside.rail … section.profiles "Meeting profiles" › div.picker › label.ui-field { display: contents; gap: 18px; min-width: 0px }
+aside.rail … section.profiles "Meeting profiles" › div.picker › label.ui-field › span { display: block }
+aside.rail … section.profiles "Meeting profiles" › div.picker › label.ui-field › span.ui-select { display: flex; position: relative; width: 100%; min-width: 0px }
+aside.rail … section.profiles "Meeting profiles" › div.picker › label.ui-field › span.ui-select › select "Meeting profiles" { white-space: preserve nowrap; display: block; width: 100%; min-width: 0px; padding: 18px 72px 18px 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … section.profiles "Meeting profiles" › div.picker › label.ui-field › span.ui-select › svg { color: #8b93a1; display: block; position: absolute; width: 12px; height: 12px }
+aside.rail … section.profiles "Meeting profiles" › div.picker › button.ui-tool "Manage profiles" { font-weight: 500; line-height: 1; text-align: center; display: grid; align-items: center; justify-content: center; gap: 18px; width: 81px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail … button.ui-tool "Manage profiles" › svg { display: block; width: 14px; height: 14px }
+aside.rail › section.rail-section:nth(1) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px; max-width: 855px }
+aside.rail › section.rail-section:nth(1) › div.step-head { display: flex; align-items: center; gap: 18px }
+aside.rail › section.rail-section:nth(1) › div.step-head › span.step-no { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; color: #5ad1a0; display: block }
+aside.rail › section.rail-section:nth(1) › div.step-head › h2.kicker "What to show" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › section.rail-section:nth(1) › button.card.ui-card "Live translation Speech is dete…" { text-align: left; display: flex; align-items: flex-start; gap: 27px; width: 100%; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … button.card.ui-card "Live translation Speech is dete…" › span.card-icon { color: #8b93a1; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 30px; height: 30px; border-radius: 4px; background-color: #191d23 }
+aside.rail … button.card.ui-card "Live translation Speech is dete…" › span.card-icon › svg { display: block; width: 18px; height: 18px }
+aside.rail … button.card.ui-card "Live translation Speech is dete…" › span.card-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.card.ui-card "Live translation Speech is dete…" › span.card-body › span.card-title { font-size: 31.5px; font-weight: 600; line-height: 1.2; color: #c3c9d2; display: block }
+aside.rail … button.card.ui-card "Live translation Speech is dete…" › span.card-body › span.card-desc { font-size: 27px; line-height: 1.4; text-wrap-style: pretty; color: #8b93a1; display: block }
+aside.rail › section.rail-section:nth(1) › button.card.ui-card "Subtitles Transcribe speech loc…" { text-align: left; display: flex; align-items: flex-start; gap: 27px; width: 100%; padding: 27px; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 4px; background-color: rgba(90, 209, 160, 0.08) }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-icon { color: #7fdcb6; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 30px; height: 30px; border-radius: 4px; background-color: rgba(90, 209, 160, 0.14) }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-icon › svg { display: block; width: 18px; height: 18px }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-body › span.card-title { font-size: 31.5px; font-weight: 600; line-height: 1.2; display: block }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-body › span.card-desc { font-size: 27px; line-height: 1.4; text-wrap-style: pretty; color: #8b93a1; display: block }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-check { color: #5ad1a0; display: flex; flex: 0 0 auto; margin: 0px 0px 0px auto }
+aside.rail … button.card.ui-card "Subtitles Transcribe speech loc…" › span.card-check › svg { display: block; width: 16px; height: 16px }
+aside.rail › div.divider:nth(1) { flex: 0 0 auto; max-width: 855px; height: 1px; background-color: #1f242b }
+aside.rail › section.rail-section:nth(2) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px; max-width: 855px }
+aside.rail › section.rail-section:nth(2) › div.step-head { display: flex; align-items: center; gap: 18px }
+aside.rail › section.rail-section:nth(2) › div.step-head › span.step-no { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; color: #5ad1a0; display: block }
+aside.rail › section.rail-section:nth(2) › div.step-head › h2.kicker "Where the audio comes from" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › section.rail-section:nth(2) › div.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px }
+aside.rail › section.rail-section:nth(2) › div.tiles › button.tile.ui-card "Demo audio" { font-size: 27px; font-weight: 600; line-height: 1; text-align: left; color: #7fdcb6; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 27px 9px 18px; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 4px; background-color: rgba(90, 209, 160, 0.08) }
+aside.rail … button.tile.ui-card "Demo audio" › svg { display: block; width: 18px; height: 18px }
+aside.rail … button.tile.ui-card "Demo audio" › span { display: block }
+aside.rail › section.rail-section:nth(2) › div.tiles › button.tile.ui-card "System audio" { font-size: 27px; font-weight: 500; line-height: 1; text-align: left; color: #8b93a1; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 27px 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419; opacity: 0.5 }
+aside.rail … button.tile.ui-card "System audio" › svg { display: block; width: 18px; height: 18px }
+aside.rail … button.tile.ui-card "System audio" › span { display: block }
+aside.rail › section.rail-section:nth(2) › div.tiles › button.tile.ui-card "Both" { font-size: 27px; font-weight: 500; line-height: 1; text-align: left; color: #8b93a1; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 27px 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419; opacity: 0.5 }
+aside.rail … button.tile.ui-card "Both" › svg { display: block; width: 18px; height: 18px }
+aside.rail … button.tile.ui-card "Both" › span { display: block }
+aside.rail › section.rail-section:nth(2) › p.hint { font-size: 27px; line-height: 1.5; color: #8b93a1; margin: 0px }
+aside.rail › section.rail-section:nth(2) › div.meters { display: flex; flex-direction: column; gap: 18px; margin: 18px 0px 0px }
+aside.rail › section.rail-section:nth(2) › div.meters › div.meter { display: grid; align-items: center; grid-template-columns: 243px 1fr; gap: 18px }
+aside.rail › section.rail-section:nth(2) › div.meters › div.meter › span.label { font-size: 24.75px; font-weight: 500; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; overflow-wrap: break-word; color: #8b93a1; display: block }
+aside.rail › section.rail-section:nth(2) › div.meters › div.meter › div.track[role=meter] "Demo audio" { position: relative; height: 8px; overflow: hidden; border: 1px solid #1f242b; border-radius: 4px; background-color: #191d23 }
+aside.rail … div.track[role=meter] "Demo audio" › div.fill { position: absolute; background-image: linear-gradient(90deg, #5ad1a0, #5ad1a0 78%, #ffb454) }
+aside.rail … div.track[role=meter] "Demo audio" › div.hatch { position: absolute; background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 5px, #0e1013 5px, #0e1013 7px) }
+aside.rail › div.divider:nth(2) { flex: 0 0 auto; max-width: 855px; height: 1px; background-color: #1f242b }
+aside.rail › section.rail-section:nth(3) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px; max-width: 855px }
+aside.rail › section.rail-section:nth(3) › div.step-head { display: flex; align-items: center; gap: 18px }
+aside.rail › section.rail-section:nth(3) › div.step-head › span.step-no { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; color: #5ad1a0; display: block }
+aside.rail › section.rail-section:nth(3) › div.step-head › h2.kicker "Demo language" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › section.rail-section:nth(3) › div.lang-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px }
+aside.rail › section.rail-section:nth(3) › div.lang-cards › button.lang.ui-card "EN English" { text-align: left; display: flex; align-items: center; gap: 18px; padding: 27px; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 4px; background-color: rgba(90, 209, 160, 0.08) }
+aside.rail … button.lang.ui-card "EN English" › span.lang-code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 600; line-height: 1; color: #7fdcb6; display: block }
+aside.rail … button.lang.ui-card "EN English" › span.lang-name { font-size: 29.25px; font-weight: 600; line-height: 1; display: block }
+aside.rail › section.rail-section:nth(3) › div.lang-cards › button.lang.ui-card "FR French" { text-align: left; display: flex; align-items: center; gap: 18px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … button.lang.ui-card "FR French" › span.lang-code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; color: #8b93a1; display: block }
+aside.rail … button.lang.ui-card "FR French" › span.lang-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+aside.rail › section.rail-section:nth(3) › p.hint { font-size: 27px; line-height: 1.5; color: #8b93a1; margin: 0px }
+aside.rail › div.divider:nth(3) { flex: 0 0 auto; max-width: 855px; height: 1px; background-color: #1f242b }
+aside.rail › section.rail-section:nth(4) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px; max-width: 855px }
+aside.rail › section.rail-section:nth(4) › div.step-head { display: flex; align-items: center; gap: 18px }
+aside.rail › section.rail-section:nth(4) › div.step-head › span.step-no { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; color: #5ad1a0; display: block }
+aside.rail › section.rail-section:nth(4) › div.step-head › h2.kicker "Engine" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › section.rail-section:nth(4) › div.engines { display: flex; flex-direction: column; gap: 18px }
+aside.rail › section.rail-section:nth(4) › div.engines › button.engine.ui-card "Local Whisper Multilingual Whis…" { text-align: left; display: flex; align-items: center; gap: 27px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … button.engine.ui-card "Local Whisper Multilingual Whis…" › span.engine-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.engine.ui-card "Local Whisper Multilingual Whis…" › span.engine-body › span.engine-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+aside.rail … button.engine.ui-card "Local Whisper Multilingual Whis…" › span.engine-body › span.engine-model { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; line-height: 1.2; overflow-wrap: anywhere; color: #8b93a1; display: block }
+aside.rail … button.engine.ui-card "Local Whisper Multilingual Whis…" › span.engine-rate { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; white-space: collapse nowrap; font-variant-numeric: tabular-nums; color: #8b93a1; display: block; margin: 0px 0px 0px auto }
+aside.rail › section.rail-section:nth(4) › div.engines › button.engine.ui-card "Mistral Voxtral voxtral-mini-tr…" { text-align: left; display: flex; align-items: center; gap: 27px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … button.engine.ui-card "Mistral Voxtral voxtral-mini-tr…" › span.engine-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.engine.ui-card "Mistral Voxtral voxtral-mini-tr…" › span.engine-body › span.engine-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+aside.rail … button.engine.ui-card "Mistral Voxtral voxtral-mini-tr…" › span.engine-body › span.engine-model { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; line-height: 1.2; overflow-wrap: anywhere; color: #8b93a1; display: block }
+aside.rail … button.engine.ui-card "Mistral Voxtral voxtral-mini-tr…" › span.engine-rate { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; white-space: collapse nowrap; font-variant-numeric: tabular-nums; color: #8b93a1; display: block; margin: 0px 0px 0px auto }
+aside.rail › section.rail-section:nth(4) › div.engines › button.engine.ui-card "Google Gemini gemini-3.5-transc…" { text-align: left; display: flex; align-items: center; gap: 27px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail … button.engine.ui-card "Google Gemini gemini-3.5-transc…" › span.engine-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.engine.ui-card "Google Gemini gemini-3.5-transc…" › span.engine-body › span.engine-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+aside.rail … button.engine.ui-card "Google Gemini gemini-3.5-transc…" › span.engine-body › span.engine-model { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; line-height: 1.2; overflow-wrap: anywhere; color: #8b93a1; display: block }
+aside.rail … button.engine.ui-card "Google Gemini gemini-3.5-transc…" › span.engine-body › span.hint { font-size: 27px; line-height: 1.5; color: #8b93a1; display: block }
+aside.rail … button.engine.ui-card "Google Gemini gemini-3.5-transc…" › span.engine-rate { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; white-space: collapse nowrap; font-variant-numeric: tabular-nums; color: #8b93a1; display: block; margin: 0px 0px 0px auto }
+aside.rail › section.rail-section:nth(4) › div.engines › button.engine.ui-card "Built-in demo Bundled sample · …" { text-align: left; display: flex; align-items: center; gap: 27px; padding: 27px; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 4px; background-color: rgba(90, 209, 160, 0.08) }
+aside.rail … button.engine.ui-card "Built-in demo Bundled sample · …" › span.engine-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+aside.rail … button.engine.ui-card "Built-in demo Bundled sample · …" › span.engine-body › span.engine-name { font-size: 29.25px; font-weight: 600; line-height: 1; display: block }
+aside.rail … button.engine.ui-card "Built-in demo Bundled sample · …" › span.engine-body › span.engine-model { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; line-height: 1.2; overflow-wrap: anywhere; color: #8b93a1; display: block }
+aside.rail … button.engine.ui-card "Built-in demo Bundled sample · …" › span.engine-rate { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; white-space: collapse nowrap; font-variant-numeric: tabular-nums; color: #7fdcb6; display: block; margin: 0px 0px 0px auto }
+aside.rail … button.engine.ui-card "Built-in demo Bundled sample · …" › span.engine-rate › span.unit { color: #8b93a1 }
+main.stage { display: flex; flex-direction: column; padding: 72px }
+main.stage › span.kicker { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; display: block; flex: 0 0 auto }
+main.stage › h2.ready "Ready when you are" { font-size: 60.75px; font-weight: 600; line-height: 1.2; letter-spacing: -1.215px; flex: 0 0 auto; margin: 36px 0px 0px }
+main.stage › p.intro { font-size: 29.25px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; flex: 0 0 auto; max-width: 804.492px; margin: 18px 0px 0px }
+main.stage › div.checklist { flex: 0 0 auto; margin: 54px 0px 0px; border-top: 1px solid #1f242b }
+main.stage › div.checklist › div.check-row:nth(1) { display: grid; align-items: center; grid-template-columns: 24px 1fr auto; gap: 27px; padding: 36px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.checklist › div.check-row:nth(1) › span.mark.ok { color: #5ad1a0; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background-color: rgba(90, 209, 160, 0.14) }
+main.stage › div.checklist › div.check-row:nth(1) › span.mark.ok › svg { display: block; width: 12px; height: 12px }
+main.stage › div.checklist › div.check-row:nth(1) › div.check-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+main.stage › div.checklist › div.check-row:nth(1) › div.check-body › span.check-title { font-size: 31.5px; font-weight: 500; line-height: 1.2; display: block }
+main.stage › div.checklist › div.check-row:nth(1) › div.check-body › span.check-desc { font-size: 27px; line-height: 1.4; overflow-wrap: anywhere; color: #8b93a1; display: block }
+main.stage › div.checklist › div.check-row:nth(1) › span { display: block }
+main.stage › div.checklist › div.check-row:nth(2) { display: grid; align-items: center; grid-template-columns: 24px 1fr auto; gap: 27px; padding: 36px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.checklist › div.check-row:nth(2) › span.mark.ok { color: #5ad1a0; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background-color: rgba(90, 209, 160, 0.14) }
+main.stage › div.checklist › div.check-row:nth(2) › span.mark.ok › svg { display: block; width: 12px; height: 12px }
+main.stage › div.checklist › div.check-row:nth(2) › div.check-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+main.stage › div.checklist › div.check-row:nth(2) › div.check-body › span.check-title { font-size: 31.5px; font-weight: 500; line-height: 1.2; display: block }
+main.stage › div.checklist › div.check-row:nth(2) › div.check-body › span.check-desc { font-size: 27px; line-height: 1.4; overflow-wrap: anywhere; color: #8b93a1; display: block }
+main.stage › div.checklist › div.check-row:nth(2) › span { display: block }
+main.stage › div.checklist › div.check-row:nth(3) { display: grid; align-items: center; grid-template-columns: 24px 1fr auto; gap: 27px; padding: 36px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.checklist › div.check-row:nth(3) › span.mark.wait { color: #ffb454; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background-color: rgba(255, 180, 84, 0.14) }
+main.stage › div.checklist › div.check-row:nth(3) › span.mark.wait › span.dot { display: block; width: 6px; height: 6px; border-radius: 50%; background-color: #ffb454 }
+main.stage › div.checklist › div.check-row:nth(3) › div.check-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+main.stage › div.checklist › div.check-row:nth(3) › div.check-body › span.check-title { font-size: 31.5px; font-weight: 500; line-height: 1.2; display: block }
+main.stage › div.checklist › div.check-row:nth(3) › div.check-body › span.check-desc.warn { font-size: 27px; line-height: 1.4; overflow-wrap: anywhere; color: #ffb454; display: block }
+main.stage › div.checklist › div.check-row:nth(3) › button.ui-tool.warn.sm "Move overlay" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #ffd39a; display: flex; align-items: center; justify-content: center; gap: 18px; min-width: 0px; max-width: 100%; padding: 9px 27px; border: 1px solid rgba(255, 180, 84, 0.4); border-radius: 4px; background-color: rgba(255, 180, 84, 0.08) }
+main.stage › div.checklist › div.check-row:nth(4) { display: grid; align-items: center; grid-template-columns: 24px 1fr auto; gap: 27px; padding: 36px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.checklist › div.check-row:nth(4) › span.mark.neutral { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; color: #8b93a1; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background-color: #191d23 }
+main.stage › div.checklist › div.check-row:nth(4) › div.check-body { display: flex; flex-direction: column; gap: 9px; min-width: 0px }
+main.stage › div.checklist › div.check-row:nth(4) › div.check-body › span.check-title { font-size: 31.5px; font-weight: 500; line-height: 1.2; display: block }
+main.stage › div.checklist › div.check-row:nth(4) › div.check-body › span.check-desc { font-size: 27px; line-height: 1.4; overflow-wrap: anywhere; color: #8b93a1; display: block }
+main.stage › div.checklist › div.check-row:nth(4) › span.check-rate { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 29.25px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; color: #c3c9d2; display: block }
+main.stage › div.launch { display: flex; flex-direction: column; align-items: flex-start; flex: 0 0 auto; gap: 27px; margin: 72px 0px 0px }
+main.stage › div.launch › span.rehearse-hint { font-size: 27px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; display: block; max-width: 1113.91px }
+main.stage › div.launch › span.privacy { font-size: 27px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; display: block; max-width: 1113.91px }
+body › div › div { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden }

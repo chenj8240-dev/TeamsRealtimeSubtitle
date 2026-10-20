@@ -1,0 +1,28 @@
+name: Dependency audit
+
+# The pull-request gate in ci.yml audits only the npm packages that ship. This is the full
+# audit, dev tooling included, once a week: a dev-only advisory still gets seen, without
+# failing pull requests that did not cause it. RustSec still runs on every pull request.
+
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # npm audit reads the lockfile; nothing needs installing.
+      - name: npm audit (all dependencies, moderate and above)
+        run: npm audit --audit-level=moderate

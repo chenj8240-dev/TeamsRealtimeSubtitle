@@ -1,0 +1,28 @@
+# Instruction sets for Whisper's ggml CPU backend. Distributed binaries must not inherit the
+# build machine's CPU, so GGML_NATIVE stays off and each level is named explicitly. They apply
+# only to ggml's CPU library (whisper.cpp itself and the Rust code keep the target baseline),
+# and ggml's CMake reads the x86 switches only on x86 and GGML_CPU_ARM_ARCH only on ARM, so one
+# table serves both architectures.
+#
+# x64: AVX2 with FMA and F16C is where ggml's quantised dot products (Q5_1 included) have real
+# SIMD paths; without it they run scalar. clang-cl turns this into `/arch:AVX2`, which it
+# treats as Haswell and so also allows BMI1, BMI2, LZCNT, MOVBE and POPCNT. ggml's own BMI2
+# code is limited to IQ1_M kernels the pinned models never reach, but the compiler may emit any
+# of these, so BMI2 is on here to say so and `src-tauri/src/whisper/cpu.rs` requires the whole
+# Haswell set at runtime.
+#
+# ARM64: dot-product and half-precision arithmetic, which every Windows-on-ARM SoC from the
+# Snapdragon 850 onwards has. The runtime check there is dot-product only; see `cpu.rs`.
+#
+# A processor without these is refused before any whisper.cpp code runs, and the interface
+# offers the other engines instead. Changing a value here needs a clean native rebuild: the
+# whisper-rs-sys build script does not watch these variables.
+[env]
+GGML_NATIVE = "OFF"
+GGML_AVX = "ON"
+GGML_AVX2 = "ON"
+GGML_FMA = "ON"
+GGML_F16C = "ON"
+GGML_BMI2 = "ON"
+GGML_SSE42 = "ON"
+GGML_CPU_ARM_ARCH = "armv8.2-a+dotprod+fp16"

@@ -1,0 +1,31 @@
+# Every tracked text file is already stored LF-normalised in the index; this
+# pins the working tree to LF too so Windows checkouts stop producing mixed
+# endings that churn diffs and trip `cargo fmt`/`svelte-check` across CI OSes.
+* text=auto eol=lf
+
+# Binary assets: never diffed, never EOL-touched.
+*.png  binary
+*.ico  binary
+*.icns binary
+*.dmg  binary
+*.msi  binary
+*.exe  binary
+
+# Lockfiles: exclude from diffs, PR review noise, and GitHub language stats.
+package-lock.json     -diff linguist-generated
+src-tauri/Cargo.lock  -diff linguist-generated
+
+# Docs shouldn't count toward the repo's language breakdown.
+docs/**    linguist-documentation
+ROADMAP.md linguist-documentation
+
+# --- Source archives -------------------------------------------------------
+# `git archive` backs the "Source code (zip/tar.gz)" assets on every GitHub
+# release. Strip local dev tooling so those tarballs contain only what someone
+# needs to build and run the app.
+/.github        export-ignore
+/.vscode        export-ignore
+/.gitattributes export-ignore
+/.gitignore     export-ignore
+/.npmrc         export-ignore
+/.nvmrc         export-ignore

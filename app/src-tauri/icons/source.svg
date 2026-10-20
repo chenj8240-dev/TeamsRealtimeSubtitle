@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <!-- Tile: the surface-2 to surface-0 tokens, as the toolbar mark draws it. (No double
+         hyphens: they end an XML comment, so token names are written without them.) -->
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#191d23"/>
+      <stop offset="1" stop-color="#0e1013"/>
+    </linearGradient>
+    <!-- Glow: the accent token. -->
+    <radialGradient id="glow" cx="0.25" cy="0.2" r="0.9">
+      <stop offset="0" stop-color="#5ad1a0" stop-opacity="0.16"/>
+      <stop offset="0.6" stop-color="#5ad1a0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="224" fill="url(#tile)"/>
+  <rect width="1024" height="1024" rx="224" fill="url(#glow)"/>
+  <!-- Wave to words: a speech wave (accent) settles into a caption line (text-body). -->
+  <g fill="none" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="#5ad1a0" d="M184 496 C222 496 232 344 280 344 C330 344 340 648 390 648 C436 648 444 428 486 428 C524 428 530 544 562 544 C586 544 592 496 620 496 L840 496"/>
+    <path stroke="#e9ebef" d="M500 680 L840 680"/>
+  </g>
+</svg>

@@ -1,0 +1,178 @@
+# running · de · 100% · 1200×820
+# path { property: computed value } — inherited properties where they differ from
+# the parent, the rest where they differ from the same element unstyled.
+html { font-family: Archivo, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #ffffff; height: 100% }
+body { color: #e9ebef; height: 100%; margin: 0px; background-color: #0e1013 }
+body › div { display: contents }
+body › div › div.app { display: grid; height: 820px; background-color: #0e1013 }
+header.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 8px 24px; background-color: #111419 }
+header.toolbar › span.brand { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 24px; height: 24px; border: 1px solid #262b33; border-radius: 21.875%; background-image: linear-gradient(#191d23, #0e1013) }
+header.toolbar › span.brand › svg { display: block; width: 18px; height: 18px }
+header.toolbar › h1.sr-only "Live Translation & Subtitles" { font-size: 32px; font-weight: 700; white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+header.toolbar › div.session-controls { display: contents }
+header.toolbar › div.session-controls › button.ui-tool.danger.lg.stop "Untertitel beenden" { font-size: 14px; font-weight: 600; line-height: 1; text-align: center; color: #ff8f8f; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0px; max-width: 100%; padding: 8px 24px; border: 1px solid rgba(255, 92, 92, 0.4); border-radius: 4px; background-color: rgba(255, 92, 92, 0.08) }
+header.toolbar … button.ui-tool.danger.lg.stop "Untertitel beenden" › svg { display: block; width: 14px; height: 14px }
+header.toolbar … button.ui-tool.danger.lg.stop "Untertitel beenden" › span.shortcut { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; font-weight: 500; white-space: collapse nowrap; display: block; padding: 0px 0px 0px 8px; margin: 0px 0px 0px 4px; border-left: 1px solid color(srgb 1 0.561 0.561 / 0.35) }
+header.toolbar › div.session-controls › button.ui-tool.ghost.lg "Pausieren" { font-size: 14px; font-weight: 600; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0px; max-width: 100%; padding: 8px 24px; border: 1px solid #262b33; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+header.toolbar … button.ui-tool.ghost.lg "Pausieren" › svg { display: block; width: 14px; height: 14px }
+header.toolbar … button.ui-tool.ghost.lg "Pausieren" › span.shortcut { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; font-weight: 500; white-space: collapse nowrap; display: block; padding: 0px 0px 0px 8px; margin: 0px 0px 0px 4px; border-left: 1px solid color(srgb 0.765 0.788 0.824 / 0.35) }
+header.toolbar › div.pill.live { display: flex; align-items: center; flex: 0 0 auto; gap: 8px; padding: 4px 8px; margin: 0px 0px 0px auto; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 999px; background-color: rgba(90, 209, 160, 0.08) }
+header.toolbar › div.pill.live › span.pill-dot { display: block; width: 7px; height: 7px; border-radius: 50%; background-color: #5ad1a0; box-shadow: #5ad1a0 0px 0px 8px 0px }
+header.toolbar › div.pill.live › span.pill-label { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #7fdcb6; display: block }
+header.toolbar › div.pill.live › span.pill-time { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; color: #7fdcb6; display: block }
+header.toolbar › button.ui-tool.icon "Einstellungen öffnen" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 8px; width: 32px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid rgba(0, 0, 0, 0); border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+header.toolbar … button.ui-tool.icon "Einstellungen öffnen" › svg { display: block; width: 16px; height: 16px }
+body › div › div.app › div.rule.live { position: relative; overflow: hidden; background-color: rgba(90, 209, 160, 0.14) }
+body › div › div.app › div.rule.live › span.sweep { display: block; position: absolute; background-image: linear-gradient(90deg, rgba(0, 0, 0, 0), #5ad1a0, rgba(0, 0, 0, 0)) }
+body › div › div.app › p.sr-only[role=status]:nth(1) { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+body › div › div.app › p.sr-only[role=status]:nth(2) { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+body › div › div.app › div.body { display: grid; grid-template-columns: 380px minmax(0px, 1fr); overflow: auto hidden }
+aside.rail { display: flex; flex-direction: column; gap: 16px; overflow: auto; padding: 24px; border-right: 1px solid #1f242b; background-color: #111419 }
+aside.rail › div.rail-head { display: flex; align-items: center; flex: 0 0 auto; gap: 8px; max-width: 380px }
+aside.rail › div.rail-head › span.rail-icon { color: #8b93a1; display: flex }
+aside.rail › div.rail-head › span.rail-icon › svg { display: block; width: 14px; height: 14px }
+aside.rail › div.rail-head › h2.kicker "Sitzung gesperrt" { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › div.chips { display: grid; flex: 0 0 auto; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 380px }
+aside.rail › div.chips › div.chip:nth(1) { display: flex; flex-direction: column; gap: 4px; min-width: 0px; padding: 8px 12px; border: 1px solid #1f242b; border-radius: 4px; background-color: #111419 }
+aside.rail › div.chips › div.chip:nth(1) › span.chip-label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block }
+aside.rail › div.chips › div.chip:nth(1) › span.chip-value { font-size: 13px; font-weight: 500; line-height: 1.2; display: block }
+aside.rail › div.chips › div.chip:nth(2) { display: flex; flex-direction: column; gap: 4px; min-width: 0px; padding: 8px 12px; border: 1px solid #1f242b; border-radius: 4px; background-color: #111419 }
+aside.rail › div.chips › div.chip:nth(2) › span.chip-label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block }
+aside.rail › div.chips › div.chip:nth(2) › span.chip-value { font-size: 13px; font-weight: 500; line-height: 1.2; display: block }
+aside.rail › div.chips › div.chip:nth(3) { display: flex; flex-direction: column; gap: 4px; min-width: 0px; padding: 8px 12px; border: 1px solid #1f242b; border-radius: 4px; background-color: #111419 }
+aside.rail › div.chips › div.chip:nth(3) › span.chip-label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block }
+aside.rail › div.chips › div.chip:nth(3) › span.chip-value { font-size: 13px; font-weight: 500; line-height: 1.2; display: block }
+aside.rail › div.chips › div.chip:nth(4) { display: flex; flex-direction: column; gap: 4px; min-width: 0px; padding: 8px 12px; border: 1px solid #1f242b; border-radius: 4px; background-color: #111419 }
+aside.rail › div.chips › div.chip:nth(4) › span.chip-label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block }
+aside.rail › div.chips › div.chip:nth(4) › span.chip-value { font-size: 13px; font-weight: 500; line-height: 1.2; display: block }
+aside.rail › p.rail-note { font-size: 12px; line-height: 1.4; color: #8b93a1; flex: 0 0 auto; max-width: 380px; margin: 0px }
+aside.rail › div.divider:nth(1) { flex: 0 0 auto; max-width: 380px; height: 1px; background-color: #1f242b }
+aside.rail › div.rail-section:nth(1) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 8px; max-width: 380px }
+aside.rail › div.rail-section:nth(1) › h2.kicker "Audio kommt an" { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › div.rail-section:nth(1) › div.activity[role=group] "Status der Live-Eingänge" { font-size: 12px; line-height: 1.5; color: #c3c9d2 }
+aside.rail … div.activity[role=group] "Status der Live-Eingänge" › p:nth(1) { margin: 8px 0px }
+aside.rail … div.activity[role=group] "Status der Live-Eingänge" › p:nth(1) › strong { font-weight: 700 }
+aside.rail … div.activity[role=group] "Status der Live-Eingänge" › p:nth(2) { margin: 8px 0px }
+aside.rail … div.activity[role=group] "Status der Live-Eingänge" › p:nth(2) › strong { font-weight: 700 }
+aside.rail › div.rail-section:nth(1) › p.sr-only[role=status] { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(1) { display: grid; align-items: center; grid-template-columns: 108px 1fr; gap: 8px }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(1) › span.label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; overflow-wrap: break-word; color: #8b93a1; display: block }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(1) › div.track[role=meter] "Raum" { position: relative; height: 10px; overflow: hidden; border: 1px solid #1f242b; border-radius: 4px; background-color: #191d23 }
+aside.rail … div.track[role=meter] "Raum" › div.fill { position: absolute; background-image: linear-gradient(90deg, #5ad1a0, #5ad1a0 78%, #ffb454) }
+aside.rail … div.track[role=meter] "Raum" › div.peak { position: absolute }
+aside.rail … div.track[role=meter] "Raum" › div.peak::before { content: ""; display: block; position: absolute; border: none; border-radius: 0px; background-color: #e9ebef; background-image: none; box-shadow: none; opacity: 0.7 }
+aside.rail … div.track[role=meter] "Raum" › div.hatch { position: absolute; background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 5px, #0e1013 5px, #0e1013 7px) }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(2) { display: grid; align-items: center; grid-template-columns: 108px 1fr; gap: 8px }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(2) › span.label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; overflow-wrap: break-word; color: #8b93a1; display: block }
+aside.rail › div.rail-section:nth(1) › div.meter.active:nth(2) › div.track[role=meter] "Remote" { position: relative; height: 10px; overflow: hidden; border: 1px solid #1f242b; border-radius: 4px; background-color: #191d23 }
+aside.rail … div.track[role=meter] "Remote" › div.fill { position: absolute; background-image: linear-gradient(90deg, #5ad1a0, #5ad1a0 78%, #ffb454) }
+aside.rail … div.track[role=meter] "Remote" › div.peak { position: absolute }
+aside.rail … div.track[role=meter] "Remote" › div.peak::before { content: ""; display: block; position: absolute; border: none; border-radius: 0px; background-color: #e9ebef; background-image: none; box-shadow: none; opacity: 0.7 }
+aside.rail … div.track[role=meter] "Remote" › div.hatch { position: absolute; background-image: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 5px, #0e1013 5px, #0e1013 7px) }
+aside.rail › div.cost-card { display: flex; flex-direction: column; flex: 0 0 auto; gap: 12px; max-width: 380px; padding: 12px 16px; border: 1px solid #1f242b; border-radius: 4px; background-color: #111419 }
+aside.rail › div.cost-card › div.cost-figures { display: flex; align-items: baseline; gap: 16px }
+aside.rail › div.cost-card › div.cost-figures › div.figure { display: flex; flex-direction: column; gap: 4px }
+aside.rail › div.cost-card › div.cost-figures › div.figure › span.chip-label { font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block }
+aside.rail › div.cost-card › div.cost-figures › div.figure › span.figure-value.mint { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 21px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; color: #7fdcb6; display: block }
+aside.rail › div.cost-card › div.cost-figures › span.cost-tag { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; font-weight: 500; line-height: 1; color: #8b93a1; display: block; margin: 0px 0px 0px auto }
+aside.rail › div.cost-card › p.cost-note { font-size: 11px; line-height: 1.4; text-wrap-style: pretty; color: #8b93a1; margin: 0px }
+aside.rail › div.divider:nth(2) { flex: 0 0 auto; max-width: 380px; height: 1px; background-color: #1f242b }
+aside.rail › div.rail-section:nth(2) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 8px; max-width: 380px }
+aside.rail › div.rail-section:nth(2) › h2.kicker "Overlay" { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact { display: grid; align-items: start; grid-template-columns: minmax(0px, 1fr); gap: 24px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls { display: grid; gap: 12px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.ui-stepper[role=group] "Untertitelgröße" { font-size: 12px; color: #c3c9d2; display: flex; align-items: center; gap: 8px }
+aside.rail … div.ui-stepper[role=group] "Untertitelgröße" › span { display: block; flex: 1 1 0% }
+aside.rail … div.ui-stepper[role=group] "Untertitelgröße" › button.ui-tool.sm "Kleinere Untertitel" { font-size: 13px; font-weight: 500; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; width: 32px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail … div.ui-stepper[role=group] "Untertitelgröße" › output { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; text-align: center; white-space: collapse nowrap; font-variant-numeric: tabular-nums; display: block; min-width: 28.8px }
+aside.rail … div.ui-stepper[role=group] "Untertitelgröße" › button.ui-tool.sm "Größere Untertitel" { font-size: 13px; font-weight: 500; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; width: 32px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › label.face-label { font-size: 12px; color: #c3c9d2; display: grid; gap: 8px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › label.face-label › span.ui-select { display: flex; position: relative; width: 100%; min-width: 0px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › label.face-label › span.ui-select › select "Untertitel-Schriftart" { white-space: preserve nowrap; display: block; width: 100%; min-width: 0px; padding: 8px 32px 8px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › label.face-label › span.ui-select › svg { color: #8b93a1; display: block; position: absolute; width: 12px; height: 12px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.palette-options { display: grid; gap: 12px }
+aside.rail … div[role=group] "Untertitelfarbe" › span.swatch-label { font-size: 12px; line-height: 1.2; color: #c3c9d2 }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches { display: flex; gap: 8px; margin: 8px 0px 0px }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches › button.colour-choice "Weiß" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #ffffff; box-shadow: #7fdcb6 0px 0px 0px 2px inset, #0e1013 0px 0px 0px 4px inset }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches › button.colour-choice "Hellgelb" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #fff0b3 }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches › button.colour-choice "Mint" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #7fdcb6 }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches › button.colour-choice "Hellblau" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #b9d5ff }
+aside.rail … div[role=group] "Untertitelfarbe" › div.swatches › button.colour-choice "Anthrazit" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #111419 }
+aside.rail … div[role=group] "Hintergrundfarbe" › span.swatch-label { font-size: 12px; line-height: 1.2; color: #c3c9d2 }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches { display: flex; gap: 8px; margin: 8px 0px 0px }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches › button.colour-choice "Schwarz" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #000000 }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches › button.colour-choice "Anthrazit" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #111419 }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches › button.colour-choice "Dunkelgrün" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #172b24 }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches › button.colour-choice "Marineblau" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #18263c }
+aside.rail … div[role=group] "Hintergrundfarbe" › div.swatches › button.colour-choice "Weiß" { text-align: center; color: #ffffff; display: block; width: 32px; height: 32px; border: 1px solid #3a4150; border-radius: 4px; background-color: #ffffff }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row { display: grid; gap: 8px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(1) { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(1) › span.swatch-label { font-size: 12px; line-height: 1.2; color: #c3c9d2; display: block }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(1) › input[type=color] "Untertitelfarbe · Benutzerdefin…" { color: #ffffff; display: block; flex: 0 0 auto; width: 26px; height: 20px; padding: 0px; border: 1px solid #3a4150; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(2) { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(2) › span.swatch-label { font-size: 12px; line-height: 1.2; color: #c3c9d2; display: block }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.colour-row › label.swatch:nth(2) › input[type=color] "Hintergrundfarbe · Benutzerdefi…" { color: #ffffff; display: block; flex: 0 0 auto; width: 26px; height: 20px; padding: 0px; border: 1px solid #3a4150; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › div.ui-stepper[role=group] "Hintergrundstärke" { font-size: 12px; color: #c3c9d2; display: flex; align-items: center; gap: 8px }
+aside.rail … div.ui-stepper[role=group] "Hintergrundstärke" › span { display: block; flex: 1 1 0% }
+aside.rail … div.ui-stepper[role=group] "Hintergrundstärke" › button.ui-tool.sm "Schwächerer Hintergrund hinter …" { font-size: 13px; font-weight: 500; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; width: 32px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail … div.ui-stepper[role=group] "Hintergrundstärke" › output { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; text-align: center; white-space: collapse nowrap; font-variant-numeric: tabular-nums; display: block; min-width: 28.8px }
+aside.rail … div.ui-stepper[role=group] "Hintergrundstärke" › button.ui-tool.sm "Stärkerer Hintergrund hinter de…" { font-size: 13px; font-weight: 500; line-height: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; width: 32px; min-width: 0px; max-width: 100%; padding: 0px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › p.contrast { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px; margin: 0px }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › p.contrast › span.contrast-ratio { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; font-weight: 500; font-variant-numeric: tabular-nums; color: #c3c9d2; display: block }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › p.contrast › span.contrast-note { font-size: 11px; line-height: 1.4; color: #8b93a1; display: block }
+aside.rail › div.rail-section:nth(2) › div.appearance-layout.compact › div.appearance-controls › button.ui-tool.ghost.sm "Overlay auf das Standardaussehe…" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0px; max-width: 100%; padding: 4px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: rgba(0, 0, 0, 0); opacity: 0.5 }
+aside.rail › div.rail-section:nth(2) › div.overlay-actions { display: flex; gap: 8px }
+aside.rail › div.rail-section:nth(2) › div.overlay-actions › button.ui-tool "Untertitel verschieben" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; flex: 1 1 0%; gap: 8px; min-width: 0px; max-width: 100%; padding: 8px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail … button.ui-tool "Untertitel verschieben" › svg { display: block; width: 14px; height: 14px }
+aside.rail › div.rail-section:nth(2) › div.overlay-actions › button.ui-tool "Overlay ausblenden" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; flex: 1 1 0%; gap: 8px; min-width: 0px; max-width: 100%; padding: 8px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+aside.rail … button.ui-tool "Overlay ausblenden" › svg { display: block; width: 14px; height: 14px }
+aside.rail › span.grow { display: block; flex: 1 1 0%; max-width: 380px }
+main.stage { display: flex; flex-direction: column; overflow: auto; padding: 32px }
+main.stage › div.stage-head { display: flex; align-items: center; flex: 0 0 auto; gap: 12px }
+main.stage › div.stage-head › h2.kicker "Jetzt auf dem Bildschirm" { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+main.stage › div.stage-head › span.stretch { display: block; flex: 1 1 0%; height: 1px; background-color: #1f242b }
+main.stage › div.stage-head › span.stage-note { font-size: 12px; line-height: 1; color: #8b93a1; display: block }
+main.stage › div.turns { display: flex; flex-direction: column; flex: 0 0 auto; margin: 8px 0px 0px }
+main.stage › div.turns › article.turn:nth(1) { display: grid; grid-template-columns: 96px minmax(0px, 1fr); gap: 16px; padding: 24px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.turns › article.turn:nth(1) › div.turn-who { display: flex; flex-direction: column; gap: 8px; padding: 4px 0px 0px }
+main.stage › div.turns › article.turn:nth(1) › div.turn-who › span.origin-chip.microphone { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #9db4e8; display: block; padding: 4px 8px; border-radius: 4px; background-color: rgba(79, 140, 255, 0.14) }
+main.stage › div.turns › article.turn:nth(1) › div.turn-who › span.origin-sub { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; line-height: 1; color: #8b93a1; display: block }
+main.stage › div.turns › article.turn:nth(1) › div.turn-text { display: flex; flex-direction: column; gap: 8px; max-width: 550.08px }
+main.stage › div.turns › article.turn:nth(1) › div.turn-text › p.turn-source { font-size: 13px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; margin: 0px }
+main.stage › div.turns › article.turn:nth(1) › div.turn-text › p.turn-caption { font-size: 27px; font-weight: 600; line-height: 1.3; letter-spacing: -0.405px; text-wrap-style: pretty; color: #c3c9d2; margin: 0px }
+main.stage › div.turns › article.turn:nth(2) { display: grid; grid-template-columns: 96px minmax(0px, 1fr); gap: 16px; padding: 24px 0px; border-bottom: 1px solid #1f242b }
+main.stage › div.turns › article.turn:nth(2) › div.turn-who { display: flex; flex-direction: column; gap: 8px; padding: 4px 0px 0px }
+main.stage › div.turns › article.turn:nth(2) › div.turn-who › span.origin-chip.system { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #c3c9d2; display: block; padding: 4px 8px; border-radius: 4px; background-color: #191d23 }
+main.stage › div.turns › article.turn:nth(2) › div.turn-who › span.origin-sub { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; line-height: 1; color: #8b93a1; display: block }
+main.stage › div.turns › article.turn:nth(2) › div.turn-text { display: flex; flex-direction: column; gap: 8px; max-width: 550.08px }
+main.stage › div.turns › article.turn:nth(2) › div.turn-text › p.turn-source { font-size: 13px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; margin: 0px }
+main.stage › div.turns › article.turn:nth(2) › div.turn-text › p.turn-caption.live { font-size: 27px; font-weight: 600; line-height: 1.3; letter-spacing: -0.405px; text-wrap-style: pretty; color: #f2f4f7; margin: 0px }
+main.stage › div.turns › article.turn:nth(2) › div.turn-text › p.turn-caption.live › span.caret { display: inline-block; width: 3px; height: 24.3px; margin: 0px 0px 0px 8px; background-color: #5ad1a0 }
+main.stage › span.grow { display: block; flex: 1 1 0% }
+main.stage › section.monitor { display: flex; flex-direction: column; flex: 0 0 auto; gap: 12px; padding: 16px 0px 0px; margin: 24px 0px 0px; border-top: 1px solid #1f242b }
+main.stage › section.monitor › div.head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px }
+main.stage › section.monitor › div.head › h2.kicker "Transkript" { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; margin: 0px }
+main.stage › section.monitor › div.head › span.count { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums; color: #8b93a1; display: block }
+main.stage › section.monitor › div.head › span.state.unsaved { font-size: 11px; font-weight: 600; line-height: 1; letter-spacing: 1.32px; text-transform: uppercase; color: #ffd39a; display: block; padding: 4px 8px; border-radius: 4px; background-color: rgba(255, 180, 84, 0.14) }
+main.stage › section.monitor › div.head › div.spacer { flex: 1 1 0% }
+main.stage › section.monitor › div.head › select "Exportformat" { font-size: 12px; white-space: preserve nowrap; display: block; max-width: 100%; padding: 4px; border: 1px solid #262b33; border-radius: 4px; background-color: #0e1013 }
+main.stage › section.monitor › div.head › label.ui-pref { font-size: 12px; line-height: 1.5; text-wrap-style: pretty; color: #c3c9d2; display: grid; align-items: start; grid-template-columns: auto 1fr; gap: 8px }
+main.stage › section.monitor › div.head › label.ui-pref › input[type=checkbox] "Originalwortlaut einschließen" { color: #ffffff; display: block; margin: 3.2px 3px 3px 4px }
+main.stage › section.monitor › div.head › label.ui-pref › span { display: block }
+main.stage › section.monitor › div.head › button.ui-tool.ghost.sm "Speichern unter…" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0px; max-width: 100%; padding: 4px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+main.stage › section.monitor › div.head › button.ui-tool.ghost.sm "Leeren" { font-size: 12px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0px; max-width: 100%; padding: 4px 12px; border: 1px solid #262b33; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+main.stage › section.monitor › p.sr-only[role=status] { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden; margin: -1px }
+div.log-scroll[role=region] "Transkript" { overflow: auto }
+div.log-scroll[role=region] "Transkript" › ul.log { display: flex; flex-direction: column; gap: 8px; padding: 0px; margin: 0px }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-system { display: grid; grid-template-columns: 68px 1fr; gap: 12px }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-system › span.side { font-size: 11px; font-weight: 500; line-height: 1.5; letter-spacing: 1.32px; text-transform: uppercase; color: #8b93a1; display: block; padding: 2px 0px 0px }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-system › span.text { font-size: 13px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; display: block }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-microphone { display: grid; grid-template-columns: 68px 1fr; gap: 12px }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-microphone › span.side { font-size: 11px; font-weight: 500; line-height: 1.5; letter-spacing: 1.32px; text-transform: uppercase; color: #9db4e8; display: block; padding: 2px 0px 0px }
+div.log-scroll[role=region] "Transkript" › ul.log › li.origin-microphone › span.text { font-size: 13px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; display: block }
+main.stage › section.monitor › label.recovery { display: grid; align-items: start; grid-template-columns: auto 1fr; gap: 8px }
+main.stage › section.monitor › label.recovery › input[type=checkbox] "Während des Untertitelns eine l…" { color: #ffffff; display: block; margin: 2px 0px 0px }
+main.stage › section.monitor › label.recovery › span { display: block }
+main.stage › section.monitor › label.recovery › span › span.recovery-title { font-size: 12px; color: #c3c9d2; display: block }
+main.stage › section.monitor › label.recovery › span › span.recovery-note { font-size: 12px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; display: block; margin: 4px 0px 0px }
+body › div › div { white-space: collapse nowrap; position: absolute; width: 1px; height: 1px; overflow: hidden }

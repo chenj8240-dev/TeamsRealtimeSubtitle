@@ -1,0 +1,500 @@
+{
+	"sources": {
+		"gemini": {
+			"url": "https://ai.google.dev/gemini-api/docs/live-api/live-translate",
+			"verified": "2026-09-22",
+			"note": "78 rows; Norwegian uses no, accepts nb as a search alias."
+		},
+		"openai": {
+			"url": "https://developers.openai.com/cookbook/examples/voice_solutions/realtime_translation_guide",
+			"verified": "2026-09-22",
+			"probeStatus": "pending"
+		},
+		"whisper-translate": {
+			"note": "Whisper's translate task writes English only, from any of its 99 spoken languages."
+		}
+	},
+	"languages": [
+		{
+			"code": "af",
+			"english": "Afrikaans",
+			"endonym": "Afrikaans",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ak",
+			"english": "Akan",
+			"endonym": "Akan",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sq",
+			"english": "Albanian",
+			"endonym": "shqip",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "am",
+			"english": "Amharic",
+			"endonym": "አማርኛ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ar",
+			"english": "Arabic",
+			"endonym": "العربية",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "hy",
+			"english": "Armenian",
+			"endonym": "հայերեն",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "az",
+			"english": "Azerbaijani",
+			"endonym": "azərbaycan",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "eu",
+			"english": "Basque",
+			"endonym": "euskara",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "be",
+			"english": "Belarusian",
+			"endonym": "беларуская",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "bn",
+			"english": "Bengali",
+			"endonym": "বাংলা",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "bg",
+			"english": "Bulgarian",
+			"endonym": "български",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "my",
+			"english": "Burmese (Myanmar)",
+			"endonym": "မြန်မာ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ca",
+			"english": "Catalan",
+			"endonym": "català",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "zh-Hans",
+			"english": "Chinese (Simplified)",
+			"endonym": "简体中文",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "zh-Hant",
+			"english": "Chinese (Traditional)",
+			"endonym": "繁體中文",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "hr",
+			"english": "Croatian",
+			"endonym": "hrvatski",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "cs",
+			"english": "Czech",
+			"endonym": "čeština",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "da",
+			"english": "Danish",
+			"endonym": "dansk",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "nl",
+			"english": "Dutch",
+			"endonym": "Nederlands",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "en",
+			"english": "English",
+			"endonym": "English",
+			"providers": ["gemini", "openai", "ondevice", "whisper-translate"]
+		},
+		{
+			"code": "et",
+			"english": "Estonian",
+			"endonym": "eesti",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "fil",
+			"english": "Filipino",
+			"endonym": "Filipino",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "fi",
+			"english": "Finnish",
+			"endonym": "suomi",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "fr",
+			"english": "French",
+			"endonym": "français",
+			"providers": ["gemini", "openai", "ondevice"]
+		},
+		{
+			"code": "gl",
+			"english": "Galician",
+			"endonym": "galego",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ka",
+			"english": "Georgian",
+			"endonym": "ქართული",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "de",
+			"english": "German",
+			"endonym": "Deutsch",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "el",
+			"english": "Greek",
+			"endonym": "Ελληνικά",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "gu",
+			"english": "Gujarati",
+			"endonym": "ગુજરાતી",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ha",
+			"english": "Hausa",
+			"endonym": "Hausa",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "he",
+			"english": "Hebrew",
+			"endonym": "עברית",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "hi",
+			"english": "Hindi",
+			"endonym": "हिन्दी",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "hu",
+			"english": "Hungarian",
+			"endonym": "magyar",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "is",
+			"english": "Icelandic",
+			"endonym": "íslenska",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "id",
+			"english": "Indonesian",
+			"endonym": "Indonesia",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "it",
+			"english": "Italian",
+			"endonym": "italiano",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "ja",
+			"english": "Japanese",
+			"endonym": "日本語",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "jv",
+			"english": "Javanese",
+			"endonym": "Jawa",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "kn",
+			"english": "Kannada",
+			"endonym": "ಕನ್ನಡ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "kk",
+			"english": "Kazakh",
+			"endonym": "қазақ тілі",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "km",
+			"english": "Khmer",
+			"endonym": "ខ្មែរ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "rw",
+			"english": "Kinyarwanda",
+			"endonym": "Ikinyarwanda",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ko",
+			"english": "Korean",
+			"endonym": "한국어",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "lo",
+			"english": "Lao",
+			"endonym": "ລາວ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "lv",
+			"english": "Latvian",
+			"endonym": "latviešu",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "lt",
+			"english": "Lithuanian",
+			"endonym": "lietuvių",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "mk",
+			"english": "Macedonian",
+			"endonym": "македонски",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ms",
+			"english": "Malay",
+			"endonym": "Melayu",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ml",
+			"english": "Malayalam",
+			"endonym": "മലയാളം",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "mr",
+			"english": "Marathi",
+			"endonym": "मराठी",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "mn",
+			"english": "Mongolian",
+			"endonym": "монгол",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ne",
+			"english": "Nepali",
+			"endonym": "नेपाली",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "no",
+			"english": "Norwegian",
+			"endonym": "norsk",
+			"providers": ["gemini"],
+			"aliases": ["nb", "Bokmål"]
+		},
+		{
+			"code": "fa",
+			"english": "Persian",
+			"endonym": "فارسی",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "pl",
+			"english": "Polish",
+			"endonym": "polski",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "pt-BR",
+			"english": "Portuguese (Brazil)",
+			"endonym": "português (Brasil)",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "pt-PT",
+			"english": "Portuguese (Portugal)",
+			"endonym": "português europeu",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "pa",
+			"english": "Punjabi",
+			"endonym": "ਪੰਜਾਬੀ",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ro",
+			"english": "Romanian",
+			"endonym": "română",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ru",
+			"english": "Russian",
+			"endonym": "русский",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "sr",
+			"english": "Serbian",
+			"endonym": "српски",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sd",
+			"english": "Sindhi",
+			"endonym": "سنڌي",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "si",
+			"english": "Sinhala",
+			"endonym": "සිංහල",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sk",
+			"english": "Slovak",
+			"endonym": "slovenčina",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sl",
+			"english": "Slovenian",
+			"endonym": "slovenščina",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "es",
+			"english": "Spanish",
+			"endonym": "español",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "su",
+			"english": "Sundanese",
+			"endonym": "Basa Sunda",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sw",
+			"english": "Swahili",
+			"endonym": "Kiswahili",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "sv",
+			"english": "Swedish",
+			"endonym": "svenska",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ta",
+			"english": "Tamil",
+			"endonym": "தமிழ்",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "te",
+			"english": "Telugu",
+			"endonym": "తెలుగు",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "th",
+			"english": "Thai",
+			"endonym": "ไทย",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "tr",
+			"english": "Turkish",
+			"endonym": "Türkçe",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "uk",
+			"english": "Ukrainian",
+			"endonym": "українська",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "ur",
+			"english": "Urdu",
+			"endonym": "اردو",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "uz",
+			"english": "Uzbek",
+			"endonym": "o‘zbek",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "vi",
+			"english": "Vietnamese",
+			"endonym": "Tiếng Việt",
+			"providers": ["gemini", "openai"]
+		},
+		{
+			"code": "zu",
+			"english": "Zulu",
+			"endonym": "isiZulu",
+			"providers": ["gemini"]
+		},
+		{
+			"code": "pt",
+			"english": "Portuguese",
+			"endonym": "português",
+			"providers": ["openai"]
+		},
+		{
+			"code": "zh",
+			"english": "Chinese",
+			"endonym": "中文",
+			"providers": ["openai"]
+		}
+	]
+}

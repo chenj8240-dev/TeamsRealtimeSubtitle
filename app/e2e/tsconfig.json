@@ -1,0 +1,8 @@
+{
+	// The Playwright suites run in Node, not in the app: Node types, no Vite client.
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"types": ["node"]
+	},
+	"include": ["**/*.ts"]
+}

@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Live Translation & Subtitles"
+abstract: >-
+  A Tauri desktop application that produces real-time captions for hybrid and
+  in-person conferences. It captures a presenter's microphone, Windows system
+  audio from any application, or both, and renders captions in a transparent,
+  always-on-top overlay. Two modes are kept deliberately separate: live
+  translation into provider-supported target languages via Google Gemini or OpenAI realtime
+  speech models, or into English locally via Whisper, and same-language subtitles locally via
+  Whisper or through Mistral Voxtral or Google Gemini. Built
+  for the workshop "Digital Humanities and Artificial Intelligence in African
+  Studies" / "Humanités numériques et intelligence artificielle en études
+  africaines" (STIAS, Stellenbosch, 21-24 September 2026).
+type: software
+authors:
+  - family-names: Madore
+    given-names: Frédérick
+    orcid: "https://orcid.org/0000-0003-0959-2092"
+    affiliation: "University of Bayreuth"
+repository-code: "https://github.com/fmadore/Live-translation"
+url: "https://github.com/fmadore/Live-translation"
+license: MIT
+version: 1.7.1
+date-released: "2026-10-20"
+keywords:
+  - live captions
+  - speech translation
+  - speech-to-text
+  - subtitles
+  - accessibility
+  - conference interpreting
+  - digital humanities
+  - African studies
+  - Tauri
+  - Rust

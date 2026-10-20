@@ -1,0 +1,51 @@
+name: Feature request
+description: Propose a focused improvement to the operator, overlay, audio pipeline, or Windows integration.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Operator problem
+      description: What real event or workflow problem should this solve? Describe the need before the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed outcome
+      description: Describe the observable result. Alternatives are welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Example scenario
+      description: Who uses it, during which part of a session, and what should happen?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Suggested acceptance criteria
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Areas affected
+      options:
+        - label: Operator UI
+        - label: Caption overlay
+        - label: Audio capture or devices
+        - label: Provider/API cost
+        - label: Privacy or permissions
+        - label: Microsoft Store packaging/certification
+        - label: Accessibility or localization
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and alternatives
+      description: Note hardware, Windows-version, offline, billing, privacy, or Store-policy constraints.

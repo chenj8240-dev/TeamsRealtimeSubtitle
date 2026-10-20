@@ -1,0 +1,19 @@
+{
+	"$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+	// No entry or project patterns: knip's plugins already find every entry point this project
+	// has, and a pattern repeated here is reported as redundant.
+	// - SvelteKit: the routes (`+page.svelte`, `+layout.*`) and the `#lib/*` subpath import,
+	//   taken from package.json `imports`, so it resolves in a fresh clone before `svelte-kit sync`
+	//   has run.
+	// - Vitest: both projects in vite.config.js — `*.test.ts`, `*.svelte.test.ts` and the
+	//   component project's vitest-setup-client.ts — and the coverage provider and jsdom.
+	// - package.json scripts: scripts/*.mjs, and the CLI-only devDependencies through the
+	//   binaries they provide (`tauri`, `tauri-windows-bundle`, `svelte-check`, `eslint`, …).
+	// - Prettier: prettier-plugin-svelte, from .prettierrc. GitHub Actions: the scripts CI runs.
+	// Test files are entries too, so an export that only a test imports counts as used. Run
+	// `npx knip --production` to list those: most are the seams a pure module is tested through.
+	//
+	// Any hint fails the run, so an ignore added here later is dropped once it stops being
+	// needed instead of quietly hiding the next real finding.
+	"treatConfigHintsAsErrors": true
+}

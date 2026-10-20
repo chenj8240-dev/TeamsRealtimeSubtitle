@@ -1,0 +1,119 @@
+[package]
+name = "live-translation"
+version = "1.7.1"
+description = "Real-time speech translation and same-language subtitle overlay"
+authors = ["Frédérick Madore"]
+edition = "2021"
+rust-version = "1.90"
+license = "MIT"
+repository = "https://github.com/fmadore/Live-translation"
+readme = "../README.md"
+# Desktop app, not a library — never goes to crates.io.
+publish = false
+
+[lib]
+# Tauri's entrypoint lives in the lib; main.rs is a thin shim. Only `rlib`: the template's
+# `staticlib` and `cdylib` exist for iOS/Android, and on this Windows-only app each one was a
+# further full LTO link per release build, producing a DLL and a 150 MB `.lib` nothing used.
+name = "live_translation_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.1", features = [] }
+
+[dependencies]
+# `tray-icon` builds the system-tray surface in `src/tray.rs`: on Windows a live caption
+# session has to stay reachable and stoppable with the operator window out of the way.
+tauri = { version = "2.12.1", features = ["tray-icon"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Async runtime + WebSockets for the realtime providers.
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "net"] }
+tokio-util = "0.7"
+# Uses the OS-native TLS stack — SChannel on Windows. This avoids rustls' `ring`
+# dependency. Whisper's native CPU backend separately requires Clang on Windows ARM64.
+tokio-tungstenite = { version = "0.30", features = ["native-tls"] }
+futures-util = "0.3"
+
+# Audio capture.
+cpal = "0.18"
+
+# Encoding / config / errors / logging.
+base64 = "0.23"
+# v4's default `v1` feature selects the Windows Credential Manager backend (and Secret
+# Service on the Linux CI lane) while preserving the synchronous Entry API used here.
+keyring = "4.1"
+dotenvy = "0.15"
+anyhow = "1"
+whisper-rs = { version = "=0.16.0", default-features = false }
+# The whisper-rs pin does not fix the vendored whisper.cpp; this one does (1.8.3).
+whisper-rs-sys = "=0.15.0"
+# The same 0.13 Tauri already compiles. SChannel like the WebSockets, and `system-proxy` so
+# model downloads follow the Windows proxy setting that university networks often require.
+reqwest = { version = "0.13", default-features = false, features = ["native-tls", "system-proxy"] }
+sha2 = "0.11"
+tempfile = "3"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# A second launch must reach the running instance rather than open a second capture process
+# against the same devices. Registered first in the builder chain, as the plugin requires.
+tauri-plugin-single-instance = "2.5.2"
+
+# WASAPI loopback capture is Windows-only.
+[target.'cfg(windows)'.dependencies]
+rfd = { version = "0.17.2", default-features = false }
+# Direct event-driven WASAPI access for render-device loopback capture.
+wasapi = "0.26"
+# Win32 z-order/activation control for the caption overlay (`src/overlay.rs`). Already in
+# the dependency graph via tauri/tokio, so this adds no extra compilation.
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_System_Threading",
+  "Win32_System_SystemInformation",
+  "Wdk_System_SystemServices",
+] }
+# `UISettings.TextScaleFactor` for the accessibility text-size setting (`src/textscale.rs`).
+# WinRT, so it needs the projected `windows` crate rather than the raw `windows-sys` above;
+# that crate is already in the graph via tauri, and only the requested namespace is compiled.
+windows = { version = "0.62", features = ["UI_ViewManagement"] }
+
+[dev-dependencies]
+# `test-util` adds `tokio::time::pause`, which the runner and shutdown tests run on. A feature
+# of a crate already in the graph, so `Cargo.lock` does not change.
+tokio = { version = "1", features = ["test-util"] }
+
+[features]
+# Standard Tauri production feature: serve the bundled front-end assets over the custom
+# protocol instead of the dev server. Enabled automatically by `tauri build`.
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+# Unwinding is kept on purpose (no `panic = "abort"`). A panic in one capture thread or
+# provider task must end that source, not the process: `session.rs` joins capture threads
+# and awaits client tasks expecting a failed join, and the transcript lives in the renderer,
+# where an aborted process would take it with it. Measured cost: +78% executable size
+# (+43% compressed) — see docs/app-review-2026-09-22.md, D10.
+strip = true
+
+# On top of Clippy's defaults. The cast lints because this crate converts numbers constantly
+# (samples, timestamps, Win32 sizes and handles) and an `as` that truncates, wraps or drops a
+# sign corrupts the value without failing: each conversion is a `From`/`TryFrom` or states why
+# it cannot go wrong. The other three flag signatures that hide what a function needs or can
+# do: owned arguments it only reads, duplicated match arms, results that are always `Ok`.
+# `cast_precision_loss` was tried and left out: all of its findings were integer samples or
+# counts turned into floats, where the lost low bits are far below anything heard or shown.
+# `warn` is the gate, since CI runs Clippy with `-D warnings`.
+[lints.clippy]
+cast_possible_truncation = "warn"
+cast_sign_loss = "warn"
+cast_possible_wrap = "warn"
+cast_lossless = "warn"
+needless_pass_by_value = "warn"
+match_same_arms = "warn"
+unnecessary_wraps = "warn"

@@ -1,0 +1,609 @@
+/* Design tokens for both windows, one name per colour: the near-duplicates and the aliases
+   the palette used to carry are gone, and the contrast checks in `src/lib/palette.test.ts`
+   read these values directly. Mint is the primary/live identity; blue is reserved for the
+   room speaker. */
+
+:root {
+	color-scheme: dark;
+
+	/* Spacing: one 4px scale, in `rem` so the space around text grows with the operator's Windows
+	   text size the way the text does. Every padding, margin and gap in the operator window
+	   is one of these; what is left in pixels is an optical nudge (a checkbox lined up with
+	   its label) or the overlay's caption layout, which the fitting code measures. */
+	--space-1: 0.25rem; /* 4px at 100% */
+	--space-2: 0.5rem; /* 8px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.5rem; /* 24px */
+	--space-6: 2rem; /* 32px */
+
+	/* Radii, Windows 11 geometry, named by role. Everything in the page rounds by 4px;
+	   top-level surfaces (dialogs, flyouts, the move-mode toolbar) by 8px. Cards keep their
+	   own token so they can be softened without touching controls. Circles stay 50%. */
+	--radius-control: 4px; /* buttons, fields, chips, key caps, meter tracks */
+	--radius-card: 4px; /* selectable and info cards */
+	--radius-overlay: 8px; /* dialogs, flyouts */
+	--radius-pill: 999px;
+
+	/* Control heights: the three `.ui-tool` sizes, shared by fields, steppers, swatches and
+	   icon buttons. 32, 36 and 40px at 100%, in `rem` so they grow with the text inside. */
+	--control-sm: 2rem;
+	--control-md: 2.25rem;
+	--control-lg: 2.5rem;
+
+	/* Surfaces, deepest first: the window ground, the panels and cards laid on it, and the
+	   raised marks on a panel (a key cap, a neutral pill, a hovered icon button). */
+	--surface-0: #0e1013;
+	--surface-1: #111419;
+	--surface-2: #191d23;
+
+	/* Lines: dividers and quiet card edges, the edge of a control, and that edge under the
+	   pointer. */
+	--line: #1f242b;
+	--line-strong: #262b33;
+	--line-hover: #3a4150;
+
+	/* Every hue carries the same translucent steps, so a suffix means one strength:
+	     -wash    8%  a large area: a selected card, a pressed toggle, a status pill, a button
+	                  that still needs pressing;
+	     -chip   14%  a small mark: a chip, a check mark, the hover over a wash;
+	     -border 40%  the edge of a washed control.
+	   -soft is the hue's text tint, legible on its own washes. */
+
+	/* Room speaker identity — never used for "live" or primary actions. */
+	--room: #4f8cff;
+	--room-soft: #9db4e8;
+	--room-chip: rgba(79, 140, 255, 0.14);
+
+	/* Primary (mint). --on-accent is the only text colour legible on a filled accent. */
+	--accent: #5ad1a0;
+	--accent-soft: #7fdcb6;
+	/* The darker end of the primary button's fill; --on-accent reads at 6.5:1 on it. */
+	--accent-deep: #43b989;
+	--accent-fill: linear-gradient(var(--accent), var(--accent-deep));
+	--on-accent: #05271b;
+	--accent-wash: rgba(90, 209, 160, 0.08);
+	--accent-chip: rgba(90, 209, 160, 0.14);
+	--accent-border: rgba(90, 209, 160, 0.4);
+
+	/* Attention. */
+	--warn: #ffb454;
+	--warn-soft: #ffd39a;
+	--warn-wash: rgba(255, 180, 84, 0.08);
+	--warn-chip: rgba(255, 180, 84, 0.14);
+	--warn-border: rgba(255, 180, 84, 0.4);
+
+	/* Stop / failure. */
+	--danger: #ff5c5c;
+	--danger-soft: #ff8f8f;
+	--danger-wash: rgba(255, 92, 92, 0.08);
+	--danger-chip: rgba(255, 92, 92, 0.14);
+	--danger-border: rgba(255, 92, 92, 0.4);
+
+	/* Text, four levels: headings and the live caption, body text, secondary text and
+	   control labels, and muted hints and metadata. Each is far enough from the next to read
+	   as a different level. The muted step is the floor: it clears 4.5:1 on every surface
+	   (5.47 on --surface-2) and on every tinted wash a line of text sits on (4.53 on the
+	   amber one), so no component needs a brighter grey to stay legible on a chip. --faint
+	   carries no text — it is the idle status dot, where the 3:1 non-text target applies
+	   (3.54 on --surface-2). Anything dimmer than --text-muted that has to be read is a bug,
+	   not a style choice. */
+	--text-bright: #f2f4f7;
+	--text-body: #e9ebef;
+	--text-secondary: #c3c9d2;
+	--text-muted: #8b93a1;
+	--faint: #6b7382;
+
+	/* Elevation: the dim behind a modal, and the one shadow every flyout casts — a dialog and
+	   the move-mode toolbar are the same kind of surface. */
+	--modal-scrim: rgba(8, 9, 11, 0.78);
+	--shadow-flyout: 0 24px 64px -16px rgba(0, 0, 0, 0.7);
+
+	/* Focus. One ring for both windows: 10:1 or better on every surface, and thick enough to
+	   survive a contrast theme, where it is re-declared as the system Highlight colour. */
+	--focus: var(--accent-soft);
+	--focus-width: 2px;
+	--focus-offset: 2px;
+
+	/* Numbers, model ids, timers and paths. */
+	--font-mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+	/* Windows' accessibility text size, 1 … 2.25. Overwritten on this element by
+	   `src/lib/textScale.ts`; 1 is what a browser preview and the overlay run at.
+	   Every size below is a multiple of it, so moving the slider moves the whole window. */
+	--text-scale: 1;
+
+	/* Type ramp: seven roles, and the only font sizes in the app. No component may declare a
+	   bare px size, because a px size is one the operator's Windows text setting cannot
+	   reach, and none may use a size outside these seven; `src/lib/typeScale.test.ts` fails
+	   on either. Each step is at least a pixel from its neighbour, so a difference in size
+	   is one a reader can see — half-pixel pairs read as inconsistency, not hierarchy. The
+	   comments give what each renders at with the slider at 100%. `--fs` is something else
+	   entirely: the overlay's caption size, which the operator sets for the room. */
+	--type-caption: calc(11px * var(--text-scale)); /* kickers, chips, key caps, metadata */
+	--type-small: calc(12px * var(--text-scale)); /* hints, notes, form controls */
+	--type-body: calc(13px * var(--text-scale)); /* paragraphs, names, values */
+	--type-label: calc(14px * var(--text-scale)); /* item titles, session actions */
+	--type-title: calc(17px * var(--text-scale)); /* dialog titles */
+	--type-heading: calc(21px * var(--text-scale)); /* figures, the compact stage heading */
+	--type-display: calc(27px * var(--text-scale)); /* the stage heading, live captions */
+
+	/* One tracking for every small-capital label, and three leadings for running text.
+	   Single-line controls keep `line-height: 1`; caption text keeps the leading the overlay's
+	   fitting code measures. `typeScale.test.ts` holds every component to these. */
+	--tracking-caps: 0.12em;
+	--leading-tight: 1.2; /* titles */
+	--leading-snug: 1.4; /* descriptions, notes */
+	--leading-body: 1.5; /* paragraphs, hints */
+
+	/* The root size does the other half of the job. It carries the scale into every `em` the
+	   layout is expressed in — the rail's width, the gutters that have to hold text, and the
+	   container query that stacks the two columns once they no longer fit — so the layout
+	   reflows with the type instead of clipping it. 16px is the browser default, so nothing
+	   moves at 100%. */
+	font-size: calc(16px * var(--text-scale));
+
+	font-family:
+		'Archivo',
+		system-ui,
+		-apple-system,
+		'Segoe UI',
+		Roboto,
+		sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	height: 100%;
+}
+
+body {
+	background: var(--surface-0);
+	color: var(--text-body);
+}
+
+button {
+	font: inherit;
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+input,
+select {
+	font: inherit;
+}
+
+/* Every interactive element gets the same ring, declared once. Components may restyle the
+   ring, but none may remove it: an operator driving this from the keyboard in a dark room
+   has to be able to see where the next key press will land. `:focus-visible` keeps it off
+   pointer clicks, so the ring is not visual noise during normal mouse use. */
+:focus-visible {
+	outline: var(--focus-width) solid var(--focus);
+	outline-offset: var(--focus-offset);
+}
+
+/* A checkbox draws its own focus ring inside its box; the offset above would cut into the
+   label beside it. */
+input[type='checkbox']:focus-visible {
+	outline-offset: 1px;
+}
+
+/* Text for assistive technology only — used where a control's visible label is an icon, or
+   where a state change has to be announced without also being drawn. */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* Windows contrast themes. The system palette replaces every colour the app chose, so what
+   is left here is what the palette cannot express. Each window adds its own rules for the
+   states it draws in colour alone — selection, level, liveness — next to the styles those
+   states normally use. */
+@media (forced-colors: active) {
+	:focus-visible {
+		outline-color: Highlight;
+	}
+	button:disabled {
+		/* Forced colours already recolour a disabled control to GrayText; the extra
+		   transparency only makes it harder to read. */
+		opacity: 1;
+	}
+}
+
+/* Shared animations — declared globally because both windows use them. */
+
+/* Caret on an interim caption. */
+@keyframes blink {
+	0%,
+	55% {
+		opacity: 1;
+	}
+	56%,
+	100% {
+		opacity: 0;
+	}
+}
+
+/* Indeterminate progress sweeping across a track. */
+@keyframes sweep {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(100%);
+	}
+}
+
+/* Slow pulse for a live/connecting indicator. */
+@keyframes breathe {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.45;
+	}
+}
+
+/* Safety net for reduced motion: the two windows already disable their own sweep, breathe,
+   blink and meter transitions, and this catches anything added later that forgets to. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Shared operator controls. Overlay caption colours remain independently configurable. */
+::selection {
+	background: var(--accent-chip);
+	color: var(--text-bright);
+}
+* {
+	scrollbar-color: var(--line-hover) var(--surface-0);
+	scrollbar-width: thin;
+}
+input {
+	caret-color: var(--accent);
+}
+/* ---- Buttons ------------------------------------------------------------------------
+   One button for both windows, drawn by `ui/ToolButton.svelte`: a variant says what the
+   action is, a size says where it sits. There used to be three mint primaries, three
+   identical ghosts and two disabled opacities; there is one of each now.
+
+   - default: a filled secondary action — the rail's tools, the history and profile actions;
+   - primary: the one filled mint action a screen or a dialog exists for;
+   - ghost:   an unfilled action beside content, or the quiet companion of a primary;
+   - danger:  an action that destroys something;
+   - warn:    an action that still needs doing (placing the overlay, testing the audio).
+
+   `sm` sits inside a row of content, `md` is the default, `lg` is a session action or a
+   dialog's answer: --control-sm, -md and -lg, every one a comfortable pointer target in a
+   mouse-first window, and form fields match the middle size.
+
+   The default fill is --surface-2, one step above the rail it mostly sits on, the way a
+   Windows 11 standard button sits slightly above its layer; on --surface-1 it would be the
+   rail's own colour, and only the edge would tell it from a ghost. */
+.ui-tool {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	min-width: 0;
+	max-width: 100%;
+	min-height: var(--control-md);
+	padding: var(--space-2) var(--space-3);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius-control);
+	background: var(--surface-2);
+	color: var(--text-secondary);
+	font-size: var(--type-small);
+	font-weight: 500;
+	line-height: 1;
+}
+.ui-tool:hover:not(:disabled) {
+	border-color: var(--line-hover);
+	color: var(--text-body);
+}
+.ui-tool.sm {
+	min-height: var(--control-sm);
+	padding: var(--space-1) var(--space-3);
+}
+.ui-tool.lg {
+	min-height: var(--control-lg);
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-5);
+	font-size: var(--type-label);
+	font-weight: 600;
+}
+.ui-tool.wide {
+	width: 100%;
+}
+.ui-tool.ghost {
+	background: transparent;
+}
+.ui-tool.primary {
+	border-color: transparent;
+	background: var(--accent-fill);
+	color: var(--on-accent);
+	font-weight: 600;
+}
+.ui-tool.primary:hover:not(:disabled) {
+	border-color: transparent;
+	color: var(--on-accent);
+	filter: brightness(1.06);
+}
+.ui-tool.danger {
+	border-color: var(--danger-border);
+	background: var(--danger-wash);
+	color: var(--danger-soft);
+}
+.ui-tool.danger:hover:not(:disabled) {
+	border-color: var(--danger);
+	background: var(--danger-chip);
+	color: var(--danger-soft);
+}
+.ui-tool.warn {
+	border-color: var(--warn-border);
+	background: var(--warn-wash);
+	color: var(--warn-soft);
+}
+.ui-tool.warn:hover:not(:disabled) {
+	border-color: var(--warn);
+	background: var(--warn-chip);
+	color: var(--warn-soft);
+}
+/* A toggle that is on: a chosen preset, the selected history session. Move mode is not one:
+   its label flips to Done, so it takes the primary variant instead of a pressed state. */
+.ui-tool[aria-pressed='true'] {
+	border-color: var(--accent-border);
+	background: var(--accent-wash);
+	color: var(--accent-soft);
+}
+/* An icon-only action: the settings gear, a dialog's close button. Unfilled until the pointer
+   is on it, then filled the way a Windows 11 subtle button is. Its accessible name carries
+   the whole label, so the caller passes `aria-label`. */
+.ui-tool.icon {
+	width: var(--control-sm);
+	min-height: var(--control-sm);
+	flex: none;
+	padding: 0;
+	border-color: transparent;
+	background: transparent;
+	color: var(--text-muted);
+}
+.ui-tool.icon:hover:not(:disabled) {
+	border-color: transparent;
+	background: var(--surface-2);
+	color: var(--text-body);
+}
+
+/* ---- Cards ---------------------------------------------------------------------------
+   One selectable card: ChoiceButton, LanguageCard, the source tiles and the engine rows.
+   Layout stays in each component; this is only the look and its states. Selection is
+   `aria-pressed`, which every one of them already announces. */
+.ui-card {
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius-card);
+	background: var(--surface-1);
+	color: inherit;
+	text-align: left;
+}
+.ui-card:hover:not(:disabled) {
+	border-color: var(--line-hover);
+}
+.ui-card[aria-pressed='true'] {
+	border-color: var(--accent-border);
+	background: var(--accent-wash);
+}
+.ui-card[aria-pressed='true']:hover:not(:disabled) {
+	border-color: var(--accent);
+}
+
+/* ---- Fields --------------------------------------------------------------------------- */
+.ui-field input {
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius-control);
+	background: var(--surface-1);
+	color: var(--text-secondary);
+	padding: var(--space-2) var(--space-3);
+	min-height: var(--control-md);
+	font-size: var(--type-small);
+	min-width: 0;
+	max-width: 100%;
+}
+.ui-field {
+	display: grid;
+	gap: var(--space-2);
+	min-width: 0;
+	font-size: var(--type-small);
+	color: var(--text-secondary);
+}
+.ui-select {
+	position: relative;
+	display: flex;
+	min-width: 0;
+	width: 100%;
+}
+.ui-select select {
+	appearance: none;
+	width: 100%;
+	min-width: 0;
+	padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+	min-height: var(--control-md);
+	border: 1px solid var(--line-strong);
+	border-radius: var(--radius-control);
+	background: var(--surface-1);
+	color: var(--text-secondary);
+	font-size: var(--type-small);
+}
+.ui-select svg {
+	position: absolute;
+	right: var(--space-3);
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: var(--text-muted);
+}
+/* A checkbox preference with a title and an optional note under it (`ui/Preference.svelte`):
+   the only checkbox row in the app. */
+.ui-pref {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: var(--space-2);
+	align-items: start;
+	cursor: pointer;
+	color: var(--text-secondary);
+	font-size: var(--type-small);
+	line-height: var(--leading-body);
+	text-wrap: pretty;
+}
+.ui-pref:has(input:disabled) {
+	cursor: default;
+}
+.ui-pref input {
+	accent-color: var(--accent);
+	margin-top: 0.2rem;
+}
+.ui-pref small {
+	display: block;
+	color: var(--text-muted);
+	font-size: var(--type-small);
+	margin-top: var(--space-1);
+}
+.ui-stepper {
+	display: flex;
+	gap: var(--space-2);
+	align-items: center;
+	font-size: var(--type-small);
+	color: var(--text-secondary);
+}
+.ui-stepper > span {
+	flex: 1;
+}
+/* Square buttons, so − and + are the same target at every text size. */
+.ui-stepper > .ui-tool {
+	width: var(--control-sm);
+	padding: 0;
+	font-size: var(--type-body);
+}
+.ui-stepper output {
+	min-width: 4ch;
+	text-align: center;
+	/* A value and its unit are one reading: "38 px" never breaks across two lines. */
+	white-space: nowrap;
+	font-family: var(--font-mono);
+	font-variant-numeric: tabular-nums;
+}
+@media (forced-colors: active) {
+	/* Selection is a mint edge and a mint wash, and both flatten to the same Canvas and
+	   CanvasText as the control beside it in a contrast theme. An inset outline survives. */
+	.ui-tool[aria-pressed='true'],
+	.ui-card[aria-pressed='true'] {
+		outline: 2px solid Highlight;
+		outline-offset: -2px;
+	}
+	/* Gradients are not recoloured by the forced palette, so a primary would keep its mint
+	   fill under system-coloured text. Drop it and let the theme paint the button. */
+	.ui-tool.primary {
+		background-image: none;
+	}
+}
+
+/* ---- Operator window utilities ------------------------------------------------------
+   Shared by the operator page and the components split out of it. A component's own scoped
+   rule for the same class still wins, so a deliberate local variant stays local. */
+
+.grow {
+	flex: 1;
+}
+.divider {
+	flex: 0 0 auto;
+	height: 1px;
+	background: var(--line);
+}
+/* Section labels are real headings (h1/h2) wherever they name a region, so Narrator's heading
+   navigation walks the window; the class only has to undo the browser's own heading
+   typography. */
+.kicker {
+	margin: 0;
+	font-size: var(--type-caption);
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: var(--tracking-caps);
+	text-transform: uppercase;
+	color: var(--text-muted);
+}
+.hint {
+	margin: 0;
+	font-size: var(--type-small);
+	line-height: var(--leading-body);
+	color: var(--text-muted);
+}
+.inline-hint {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	line-height: var(--leading-snug);
+}
+/* A key cap (`ui/Kbd.svelte`): one look for every shortcut the window prints. */
+.ui-kbd {
+	font-family: var(--font-mono);
+	font-size: var(--type-caption);
+	font-weight: 500;
+	line-height: 1;
+	color: var(--text-secondary);
+	padding: var(--space-1) var(--space-2);
+	border-radius: var(--radius-control);
+	border: 1px solid var(--line-strong);
+	background: var(--surface-2);
+	white-space: nowrap;
+}
+
+/* A block of the rail or the settings panel: a heading and what it governs. */
+.rail-section {
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+.step-head,
+.rail-head {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+}
+.rail-head {
+	flex: 0 0 auto;
+}
+.rail-icon {
+	color: var(--text-muted);
+	display: flex;
+}
+.step-no {
+	font-family: var(--font-mono);
+	font-size: var(--type-caption);
+	font-weight: 500;
+	line-height: 1;
+	color: var(--accent);
+}

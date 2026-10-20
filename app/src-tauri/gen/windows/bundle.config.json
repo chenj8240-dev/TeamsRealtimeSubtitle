@@ -1,0 +1,16 @@
+{
+  "displayName": "live-translation",
+  "publisher": "CN=5D0ECC96-3998-452E-B7E9-29BE9B576F86",
+  "publisherDisplayName": "FMadore",
+  "capabilities": {
+    "device": ["microphone"]
+  },
+  "signing": {
+    "pfx": null,
+    "pfxPassword": null
+  },
+  "resourceIndex": {
+    "enabled": true,
+    "keepConfig": false
+  }
+}

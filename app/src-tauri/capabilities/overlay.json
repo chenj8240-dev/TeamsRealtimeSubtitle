@@ -1,0 +1,14 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "overlay",
+  "description": "The overlay window: a caption surface. While the operator is placing it, it reads its own geometry and moves and resizes itself; afterwards it restores its own click-through. It can reach no credential, session, capture, transcript or lifecycle command.",
+  "windows": ["overlay"],
+  "permissions": [
+    "core:event:default",
+    "core:window:default",
+    "core:window:allow-set-position",
+    "core:window:allow-set-size",
+    "core:window:allow-start-dragging",
+    "allow-set-overlay-click-through"
+  ]
+}

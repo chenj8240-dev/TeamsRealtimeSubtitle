@@ -1,0 +1,86 @@
+name: Bug report
+description: Report reproducible incorrect behavior in Live Translation.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include provider API keys, transcript content that may be sensitive, or private audio.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Select ...
+        2. Start ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: Installation type
+      options:
+        - Microsoft Store MSIX
+        - GitHub NSIS installer
+        - Development build
+        - Unknown
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      placeholder: "1.0.5"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version and architecture
+      placeholder: "Windows 11 24H2, build 26100, x64"
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Audio source
+      options:
+        - Demo audio (built-in demonstration)
+        - Microphone
+        - System audio
+        - Both
+        - Rehearsal fixture
+        - Not applicable
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Provider
+      options:
+        - Built-in demo
+        - Gemini
+        - OpenAI
+        - Mistral
+        - Not applicable
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Relevant diagnostics
+      description: Paste sanitized errors or logs. Remove keys, private transcript text, and personal data.
+      render: text
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed API keys, sensitive transcript text, and private audio from this report.
+          required: true

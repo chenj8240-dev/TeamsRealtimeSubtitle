@@ -1,6 +1,6 @@
 # Windows 实时字幕与翻译工具
 
-> 状态：开发计划修订版，待确认后进入代码实施
+> 状态：实施中（T00 上游基线已导入；尚未验证 Win10 构建）
 >
 > 代码基础：[`fmadore/Live-translation`](https://github.com/fmadore/Live-translation)，MIT License
 >
@@ -13,6 +13,16 @@
 基于 Live-translation 的 Tauri、Rust、Whisper 和字幕浮层能力，做一个供个人使用的跨应用实时字幕工具。适用场景包括游戏、语音聊天、视频、浏览器内容和 Teams 等会议软件，只要声音经由 Windows 播放设备输出即可。
 
 第一阶段面向当前 Windows 10 19045：采用 WASAPI 设备回环采集当前播放设备的混合声音。Windows 10 19045 不支持项目所需的按进程捕获接口，因此首版不承诺只采集某一个应用；用户可选择播放设备，其他经过同一设备输出的声音也可能进入识别流程。Windows 11 的按应用采集作为后续可选能力，不作为 Win10 首版的前置条件。
+
+## 当前代码状态
+
+- 上游快照位于 [`app/`](app/)，固定基线为 Live-translation v1.7.1 / commit `2b525525b5a5125f27a9ffad75ac90e766748060`。
+- 上游已经实现 Windows 系统播放设备回环，以及在 Windows build 20348 及以上选择单个应用的能力；当前设备 build 19045 应使用系统设备混音模式。
+- 上游 README 声明 Windows 11；尚未在本机验证 Win10 构建、安装包最低系统版本或真实音频采集。
+- 上游的本机 Whisper 翻译目标是英语；中文离线翻译尚未实现。本地模型选型与实现仍按 `AGENT_TASKS.md` 的 T06/T07 执行。
+- 本仓库保留原始上游许可与来源，见 [`UPSTREAM_AUDIT.md`](UPSTREAM_AUDIT.md)。
+
+上游开发环境和当前代码的构建说明见 [`app/README.md`](app/README.md)。在 T01 完成前，不应把当前快照视为已支持 Windows 10 的安装程序。
 
 默认路径为本机语音识别、本机翻译、运行期间不联网（模型下载和更新除外）。翻译模型、语言覆盖和运行速度须通过单独评估决定；云端翻译只能作为用户主动启用的后续选项，并需清楚说明数据流向。
 

@@ -1,0 +1,60 @@
+# settings-app · en · 225% · 1200×820 · :has(> [role="dialog"])
+# path { property: computed value } — inherited properties where they differ from
+# the parent, the rest where they differ from the same element unstyled.
+body › div › div.scrim { display: grid; position: fixed; align-items: center; padding: 54px; background-color: rgba(8, 9, 11, 0.78) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" { display: flex; flex-direction: column; gap: 27px; width: min(1872px, 100%); height: 772px; overflow: hidden; padding: 54px; border: 1px solid #262b33; border-radius: 8px; background-color: #111419; box-shadow: rgba(0, 0, 0, 0.7) 0px 24px 64px -16px }
+div.prompt.wide.stableHeight[role=dialog] "Settings" › div.header { display: flex; align-items: flex-start; flex: 0 0 auto; gap: 27px }
+div.prompt.wide.stableHeight[role=dialog] "Settings" › div.header › h2 "Settings" { font-size: 38.25px; font-weight: 600; line-height: 1.2; text-wrap-style: balance; color: #f2f4f7; flex: 1 1 0%; margin: 0px }
+div.prompt.wide.stableHeight[role=dialog] "Settings" › div.header › button.ui-tool.icon.dismiss "Close settings" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; gap: 18px; width: 72px; min-width: 0px; max-width: 100%; padding: 0px; margin: -4px -6px 0px 0px; border: 1px solid rgba(0, 0, 0, 0); border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … button.ui-tool.icon.dismiss "Close settings" › svg { display: block; width: 14px; height: 14px }
+div.prompt.wide.stableHeight[role=dialog] "Settings" › p.hint { font-size: 27px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+div.prompt.wide.stableHeight[role=dialog] "Settings" › div.tabs[role=tablist] "Settings" { display: flex; flex-wrap: wrap; flex: 0 0 auto; gap: 9px; border-bottom: 1px solid #262b33 }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … div.tabs[role=tablist] "Settings" › button[role=tab] "Captions" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: block; position: relative; padding: 27px 36px; border: none; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … div.tabs[role=tablist] "Settings" › button[role=tab] "Reading" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: block; position: relative; padding: 27px 36px; border: none; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … div.tabs[role=tablist] "Settings" › button[role=tab] "Transcript history" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #8b93a1; display: block; position: relative; padding: 27px 36px; border: none; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … div.tabs[role=tablist] "Settings" › button[role=tab] "App" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #f2f4f7; display: block; position: relative; padding: 27px 36px; border: none; border-radius: 4px; background-color: rgba(0, 0, 0, 0) }
+div.prompt.wide.stableHeight[role=dialog] "Settings" … div.tabs[role=tablist] "Settings" › button[role=tab] "App"::after { content: ""; display: block; position: absolute; border: none; border-radius: 999px; background-color: #5ad1a0; background-image: none; box-shadow: none; opacity: 1 }
+div.settings[role=tabpanel] "App" { display: flex; flex-direction: column; flex: 1 0 0px; gap: 27px; overflow: auto; padding: 9px }
+div.settings[role=tabpanel] "App" › div.divider:nth(1) { flex: 0 0 auto; height: 1px; background-color: #1f242b }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(1) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(1) › h2.kicker "Interface language" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(1) › div.locale-cards[role=group] "Interface language" { display: grid; gap: 18px }
+div.settings[role=tabpanel] "App" … div.locale-cards[role=group] "Interface language" › button.lang.ui-card "EN English" { text-align: left; display: flex; align-items: center; gap: 18px; padding: 27px; border: 1px solid rgba(90, 209, 160, 0.4); border-radius: 4px; background-color: rgba(90, 209, 160, 0.08) }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "EN English" › span.lang-code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 600; line-height: 1; color: #7fdcb6; display: block }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "EN English" › span.lang-name { font-size: 29.25px; font-weight: 600; line-height: 1; display: block }
+div.settings[role=tabpanel] "App" … div.locale-cards[role=group] "Interface language" › button.lang.ui-card "FR Français" { text-align: left; display: flex; align-items: center; gap: 18px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "FR Français" › span.lang-code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; color: #8b93a1; display: block }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "FR Français" › span.lang-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+div.settings[role=tabpanel] "App" … div.locale-cards[role=group] "Interface language" › button.lang.ui-card "DE Deutsch" { text-align: left; display: flex; align-items: center; gap: 18px; padding: 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #111419 }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "DE Deutsch" › span.lang-code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 27px; font-weight: 500; line-height: 1; color: #8b93a1; display: block }
+div.settings[role=tabpanel] "App" … button.lang.ui-card "DE Deutsch" › span.lang-name { font-size: 29.25px; font-weight: 500; line-height: 1; color: #c3c9d2; display: block }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(1) › p.hint { font-size: 27px; line-height: 1.5; text-wrap-style: pretty; color: #8b93a1; margin: 0px }
+div.settings[role=tabpanel] "App" › div.divider:nth(2) { flex: 0 0 auto; height: 1px; background-color: #1f242b }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) { display: flex; flex-direction: column; flex: 0 0 auto; gap: 18px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › h2.kicker "Window" { font-size: 24.75px; font-weight: 600; line-height: 1; letter-spacing: 2.97px; text-transform: uppercase; color: #8b93a1; flex: 0 0 auto; margin: 0px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › button.ui-tool.wide "Minimize to tray" { font-size: 27px; font-weight: 500; line-height: 1; text-align: center; color: #c3c9d2; display: flex; align-items: center; justify-content: center; gap: 18px; width: 100%; min-width: 0px; max-width: 100%; padding: 18px 27px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" … button.ui-tool.wide "Minimize to tray" › svg { display: block; width: 14px; height: 14px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › label.ui-pref { font-size: 27px; line-height: 1.5; text-wrap-style: pretty; color: #c3c9d2; display: grid; align-items: start; grid-template-columns: auto 1fr; gap: 18px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › label.ui-pref › input[type=checkbox] "Keep running in the tray when I…" { color: #ffffff; display: block; margin: 7.2px 3px 3px 4px }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › label.ui-pref › span { display: block }
+div.settings[role=tabpanel] "App" › div.rail-section:nth(2) › label.ui-pref › span › small { color: #8b93a1; display: block; margin: 9px 0px 0px }
+div.settings[role=tabpanel] "App" › section.keys { font-size: 27px; color: #c3c9d2; flex: 0 0 auto; margin: 36px 0px }
+div.settings[role=tabpanel] "App" › section.keys › h3 "Keyboard shortcuts" { font-weight: 600; margin: 0px }
+div.settings[role=tabpanel] "App" › section.keys › p { font-size: 29.25px; line-height: 1.5; text-wrap-style: pretty; margin: 0px }
+div.settings[role=tabpanel] "App" › section.keys › dl { display: grid; align-items: baseline; grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr); gap: 27px; margin: 27px 0px }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(1) { font-weight: 600; line-height: 2 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(1) › kbd.ui-kbd { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dd:nth(1) { line-height: 1.5; color: #8b93a1; margin: 9px 0px 27px }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(2) { font-weight: 600; line-height: 2 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(2) › kbd.ui-kbd { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dd:nth(2) { line-height: 1.5; color: #8b93a1; margin: 9px 0px 27px }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(3) { font-weight: 600; line-height: 2 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(3) › kbd.ui-kbd { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dd:nth(3) { line-height: 1.5; color: #8b93a1; margin: 9px 0px 27px }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(4) { font-weight: 600; line-height: 2 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(4) › kbd.ui-kbd:nth(1) { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(4) › kbd.ui-kbd:nth(2) { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dd:nth(4) { line-height: 1.5; color: #8b93a1; margin: 9px 0px 27px }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(5) { font-weight: 600; line-height: 2 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dt:nth(5) › kbd.ui-kbd { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 24.75px; font-weight: 500; line-height: 1; padding: 9px 18px; border: 1px solid #262b33; border-radius: 4px; background-color: #191d23 }
+div.settings[role=tabpanel] "App" › section.keys › dl › dd:nth(5) { line-height: 1.5; color: #8b93a1; margin: 9px 0px 27px }

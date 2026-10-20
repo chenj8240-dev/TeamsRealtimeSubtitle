@@ -1,0 +1,359 @@
+name: CI
+
+# Checks on every push/PR: front-end format/type-check/lint/tests/build, Rust format/lint/tests,
+# with coverage reported in the job summaries, then the interface in Edge and the app end to end
+# on Windows. (release.yml builds the installers; this keeps day-to-day changes honest.
+# audit.yml runs the full dependency audit weekly.)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      # A failure on one Node version says nothing about the other: let both finish.
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      # The Rust job below runs `cargo fmt --check`; this is the frontend's half of that.
+      - name: prettier
+        run: npm run format:check
+
+      - name: svelte-check
+        run: npm run check
+
+      # What svelte-check cannot see: unhandled promises, unkeyed lists, reactive loops.
+      - name: eslint
+        run: npm run lint
+
+      - name: unused files, exports and dependencies (knip)
+        run: npm run knip
+
+      - name: unit tests
+        if: matrix.node != 24
+        run: npm test
+
+      # The same tests, instrumented on one lane only: the report would be identical on both.
+      # Coverage is reported, not gated, apart from per-file floors on the pure modules.
+      - name: unit tests with coverage
+        if: matrix.node == 24
+        run: npm run test:coverage
+
+      - name: coverage summary
+        if: matrix.node == 24
+        run: node scripts/coverage-summary.mjs >> "$GITHUB_STEP_SUMMARY"
+
+      - name: production build
+        run: npm run build
+
+      # Only what ships: the app bundles the Tauri API and the fonts, nothing else from npm. The
+      # full audit, dev tooling included, failed unrelated pull requests over advisories that
+      # cannot reach a user (14 of 26 failed runs from August to early October); audit.yml runs
+      # it weekly instead.
+      - name: dependency audit (shipped packages, moderate and above)
+        run: npm audit --omit=dev --audit-level=moderate
+
+  rust:
+    # No `needs: frontend`: this job builds the frontend it embeds itself, so waiting for the
+    # frontend checks only delayed the slow Windows lane.
+    # The Windows lane is essential: the WASAPI loopback implementation is behind
+    # cfg(windows), so an Ubuntu-only job never even compiles the event-day audio path.
+    strategy:
+      fail-fast: false
+      matrix:
+        # Exercise the portable logic and both supported Windows architectures, including
+        # native WASAPI and Win32/WinRT bindings. Packaging still runs in release.yml.
+        os: [ubuntu-latest, windows-latest, windows-11-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      # `tauri::generate_context!()` validates and embeds `frontendDist` during Rust
+      # compilation, so the production frontend must exist even for Clippy and tests.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build frontend for Tauri context
+        run: npm run build
+
+      - name: Install Tauri system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libasound2-dev \
+            libsoup-3.0-dev libjavascriptcoregtk-4.1-dev pkg-config cmake clang libclang-dev
+
+      - name: Configure native Whisper compiler
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          "CC=clang-cl" >> $env:GITHUB_ENV
+          "CXX=clang-cl" >> $env:GITHUB_ENV
+          "CXXFLAGS=/EHsc" >> $env:GITHUB_ENV
+          "CMAKE_GENERATOR=Ninja" >> $env:GITHUB_ENV
+          "LIBCLANG_PATH=C:\Program Files\LLVM\bin" >> $env:GITHUB_ENV
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # llvm-tools for the instrumented test run on the Ubuntu lane.
+          components: ${{ runner.os == 'Linux' && 'rustfmt, clippy, llvm-tools-preview' || 'rustfmt, clippy' }}
+
+      - name: Install cargo-llvm-cov
+        if: runner.os == 'Linux'
+        uses: taiki-e/install-action@1168f6810a3cb30a3514bf5756a3b7f0422c6df8 # v2.87.28
+        with:
+          tool: cargo-llvm-cov@0.9.1
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          # Bump when `.cargo/config.toml` changes: whisper-rs-sys does not rebuild ggml when
+          # its GGML_* variables change, so a restored cache would keep the old instruction sets.
+          prefix-key: whisper-cpu-${{ runner.arch }}-v2
+          # Preserve the native dependency build when an app lint/test fails.
+          cache-on-failure: true
+
+      - name: rustfmt
+        run: cargo fmt --check
+        working-directory: src-tauri
+
+      - name: clippy
+        run: cargo clippy --locked --all-targets --all-features -- -D warnings
+        working-directory: src-tauri
+
+      - name: tests
+        if: runner.os != 'Linux'
+        run: cargo test --locked --all-features
+        working-directory: src-tauri
+
+      # The Ubuntu lane runs the same tests instrumented, for a coverage report that gates
+      # nothing. The smoke test below adds its profile to the same report. `--no-report` keeps
+      # earlier profiles, so the clean drops any the Rust cache restored (dependencies stay).
+      - name: tests (instrumented)
+        if: runner.os == 'Linux'
+        run: |
+          cargo llvm-cov clean --workspace
+          cargo llvm-cov --no-report --locked --all-features
+        working-directory: src-tauri
+
+      # The smoke test copies a cached model whose hash matches the pin instead of downloading
+      # it again (38–104 s a run); the real download path has its own tests on a local server.
+      - name: Cache the smoke-test Whisper model
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/whisper-smoke-model
+          key: whisper-smoke-${{ runner.os }}-${{ hashFiles('src-tauri/src/whisper/models.rs') }}
+
+      - name: Local Whisper multilingual CPU smoke test
+        if: runner.os != 'Linux'
+        timeout-minutes: 10
+        env:
+          WHISPER_SMOKE_MODEL_CACHE: ${{ runner.temp }}/whisper-smoke-model
+        run: cargo test --locked --all-features local_whisper_smoke -- --ignored --nocapture
+        working-directory: src-tauri
+
+      - name: Local Whisper multilingual CPU smoke test (instrumented)
+        if: runner.os == 'Linux'
+        timeout-minutes: 10
+        env:
+          WHISPER_SMOKE_MODEL_CACHE: ${{ runner.temp }}/whisper-smoke-model
+        run: >-
+          cargo llvm-cov test --no-report --locked --all-features local_whisper_smoke
+          -- --ignored --nocapture
+        working-directory: src-tauri
+
+      - name: Rust coverage summary
+        if: runner.os == 'Linux'
+        working-directory: src-tauri
+        run: |
+          {
+            echo '### Rust coverage (Ubuntu lane)'
+            echo '```'
+            cargo llvm-cov report
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The x64 build compiles ggml for AVX2 (`.cargo/config.toml`), and a processor without it
+      # must be refused before any of that code runs. Intel SDE emulates Goldmont Plus, the
+      # pre-AVX core in cheap Windows 11 Celeron and Pentium Silver laptops, and stops the
+      # process on any instruction that core lacks: this step passing shows the test binary
+      # starts without executing AVX code and that the runtime gate reports the CPU unsupported.
+      - name: Set up Intel SDE
+        if: matrix.os == 'windows-latest'
+        # Mirrors Intel's archive and checks it against the SHA-256 Intel publishes. SDE is under
+        # the Intel Simplified Software License, which permits unmodified redistribution.
+        uses: petarpetrovt/setup-sde@6d2773bc0ef3005fd52e0ae0bb91782321793aec # v6.0
+        with:
+          environmentVariableName: SDE_PATH
+          sdeVersion: 10.13.1
+
+      - name: Whisper CPU gate on a pre-AVX processor (Intel SDE)
+        if: matrix.os == 'windows-latest'
+        timeout-minutes: 10
+        shell: pwsh
+        working-directory: src-tauri
+        run: |
+          # The unit-test binary the tests step already built; --no-run only reports its path.
+          $exe = cargo test --locked --all-features --lib --no-run --message-format=json |
+            ForEach-Object { $_ | ConvertFrom-Json } |
+            Where-Object { $_.reason -eq 'compiler-artifact' -and $_.executable } |
+            Select-Object -Last 1 -ExpandProperty executable
+          if (-not $exe) { throw 'Could not find the unit-test binary' }
+          & "$env:SDE_PATH\sde.exe" -glp -- $exe `
+            whisper::cpu::tests::refuses_a_processor_without_avx --exact --ignored --nocapture |
+            Tee-Object -Variable output
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          # A renamed test would match nothing and "pass"; insist that it actually ran.
+          if (-not ($output -match '1 passed')) { throw 'The CPU gate test did not run' }
+
+  # The operator window's computed styles and horizontal overflow (`e2e/style`), against the
+  # production bundle in Edge: the engine WebView2 embeds, and already on the runner image, so
+  # Playwright downloads no browser. Snapshots are text and never written on CI.
+  styles:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: production build
+        run: npm run build
+
+      - name: computed styles and overflow (Playwright, Edge)
+        run: npm run test:style
+
+      - name: Upload failure traces
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: style-traces
+          path: test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # The real app end to end (`e2e/native`): a debug build with its own identifier, driven over
+  # WebView2's DevTools port. Its own job rather than steps on the Windows Rust lane, which it
+  # would have made the slowest: `tauri build` compiles the app with `custom-protocol`, which
+  # the test builds do not, so little of that lane's work carries over anyway.
+  e2e:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Embedded in the exe; the suite's build step does not run `beforeBuildCommand`.
+      - name: production build
+        run: npm run build
+
+      # As in the rust job.
+      - name: Configure native Whisper compiler
+        shell: pwsh
+        run: |
+          "CC=clang-cl" >> $env:GITHUB_ENV
+          "CXX=clang-cl" >> $env:GITHUB_ENV
+          "CXXFLAGS=/EHsc" >> $env:GITHUB_ENV
+          "CMAKE_GENERATOR=Ninja" >> $env:GITHUB_ENV
+          "LIBCLANG_PATH=C:\Program Files\LLVM\bin" >> $env:GITHUB_ENV
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          # The rust job's prefix, so bumping it there for `.cargo/config.toml` clears this one
+          # too; the job name keeps the two caches apart.
+          prefix-key: whisper-cpu-${{ runner.arch }}-v2
+          cache-on-failure: true
+
+      # The Tiny model the smoke test caches, when there is one: the Whisper spec copies it in
+      # rather than downloading it through the interface. Restored only; the rust job saves it.
+      - name: Restore the smoke-test Whisper model
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/whisper-smoke-model
+          key: whisper-smoke-${{ runner.os }}-${{ hashFiles('src-tauri/src/whisper/models.rs') }}
+
+      - name: end to end (Playwright over WebView2)
+        timeout-minutes: 30
+        env:
+          WHISPER_SMOKE_MODEL_CACHE: ${{ runner.temp }}/whisper-smoke-model
+        run: npm run test:e2e
+
+      # The app's log, a trace of both windows and screenshots, for a failed test.
+      - name: Upload failure results
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  workflow-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: actionlint
+        uses: docker://rhysd/actionlint:1.7.12
+        with:
+          args: -color
+
+  rust-security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: RustSec audit
+        uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: src-tauri

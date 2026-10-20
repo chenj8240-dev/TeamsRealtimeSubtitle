@@ -1,0 +1,30 @@
+# Prettier's job here is the frontend half of the repo. The Rust half already has a formatter
+# — `cargo fmt --check` in CI — and the files below belong to it, to a generator, or to a
+# spec that has its own conventions.
+
+# Generated or vendored: nothing here is hand-edited.
+node_modules
+.svelte-kit
+build
+coverage
+test-results
+playwright-report
+# Playwright snapshots are compared byte for byte; formatting them would break every one.
+e2e/**/__snapshots__
+package-lock.json
+.impeccable
+# Agent worktrees: whole checkouts of this repo, formatted in their own right.
+.claude/worktrees
+
+# Tauri's, not ours. Its config and capability files are 2-space JSON by Tauri convention and
+# are rewritten by the `tauri` CLI; reformatting them to this repo's tab style would only put
+# the CLI and the formatter in each other's way.
+src-tauri
+
+# Citation metadata follows the CFF spec's own quoting, and is read by GitHub and Zenodo.
+CITATION.cff
+
+# Prose. These docs are hand-wrapped and hand-shaped, and they are where this project keeps its
+# reasoning — Prettier re-indents every wrapped list continuation, repads every table and
+# rewrites *emphasis* as _emphasis_, which is churn on files no formatter makes safer.
+*.md

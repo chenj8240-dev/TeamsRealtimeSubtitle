@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap uap3 com desktop rescap">
+
+  <!-- Identity/Name and the two display names are literals, not tauri-windows-bundle
+       placeholders: Partner Center assigned them and ingestion fails unless they match
+       byte for byte. See docs/microsoft-store.md, "Store identity (assigned)".
+       Publisher comes from bundle.config.json; Version from tauri.conf.json. -->
+  <Identity
+    Name="49346FMadore.LiveTranslationSubtitles"
+    Publisher="{{PUBLISHER}}"
+    Version="{{VERSION}}"
+    ProcessorArchitecture="{{ARCH}}" />
+
+  <Properties>
+    <DisplayName>Live Translation &amp; Subtitles</DisplayName>
+    <PublisherDisplayName>{{PUBLISHER_DISPLAY_NAME}}</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop"
+      MinVersion="{{MIN_VERSION}}"
+      MaxVersionTested="10.0.26226.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="{{EXECUTABLE}}"
+      EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements
+        DisplayName="Live Translation &amp; Subtitles"
+        Description="{{DESCRIPTION}}"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+      </uap:VisualElements>
+
+{{EXTENSIONS}}
+    </Application>
+  </Applications>
+
+  <!-- runFullTrust is added by the bundler for every Tauri app. microphone is the only
+       other capability: WASAPI loopback needs none in a full-trust package, and neither
+       does Credential Manager. -->
+  <Capabilities>
+{{CAPABILITIES}}
+  </Capabilities>
+</Package>

@@ -1,0 +1,8 @@
+# Revisions that changed formatting only. Ignore them when reading blame:
+#
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# GitHub reads this file automatically.
+
+# style: format the frontend with Prettier
+bdfc6f84fed7d439cb563656ed810750fae93473
