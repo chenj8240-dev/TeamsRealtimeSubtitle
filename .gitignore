@@ -1,0 +1,32 @@
+# .NET build output
+**/bin/
+**/obj/
+artifacts/
+publish/
+
+# Downloaded model weights and runtime caches
+models/
+**/*.gguf
+**/*.onnx
+**/*.safetensors
+
+# Local runtime data, logs, and user settings
+logs/
+sessions/
+recordings/
+*.wav
+*.mp3
+*.m4a
+*.flac
+appsettings.Local.json
+secrets.json
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vs/
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini
