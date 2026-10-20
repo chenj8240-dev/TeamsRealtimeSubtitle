@@ -1,23 +1,27 @@
 # Windows desktop build readiness
 
-Checked 2026-10-20 on the current development machine. This is a toolchain probe, not proof of a packaged Windows 10 run.
+Checked 2026-10-20 on Windows 10 build 19045. This is a toolchain probe; a native application build and run have not yet succeeded.
 
-## Results
+## Installed and verified
 
-- The Svelte/Vite production frontend builds successfully with the bundled Node runtime.
-- Full npm dependency audit: 0 reported vulnerabilities after pinning the vulnerable transitive `follow-redirects` dependency to the patched line.
-- WebView2 runtime is present under Microsoft Edge WebView on this machine.
-- Rustup was fetched from the official Rust distribution host and its SHA-256 matched the published `.sha256` value. Installing the stable MSVC toolchain into `D:\Codex\.toolchains` did not finish within two 180-second attempts; rustup reported that it was downloading six components. Rust/rustc is therefore not yet confirmed usable.
-- Microsoft C++ Build Tools and the Windows SDK were not found in the standard install locations or PATH.
-- CMake, Ninja, LLVM/Clang and `libclang` were also not found; these are additional requirements of the Whisper native build in this repository.
-- The browser preview is not a desktop runtime: Tauri-only audio and window controls remain unavailable there.
+- Visual Studio Community 2026 (18.11.1), with the x64 MSVC compiler at `C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\cl.exe`.
+- Windows SDK 10.0.26100.0 at `D:\Windows Kits\10`; `Windows.h` is present.
+- Visual Studio CMake 4.3.1 and Ninja 1.13.2.
+- Rust stable 1.99.1 (MSVC target), installed locally at `D:\Codex\.toolchains\rustup` and `D:\Codex\.toolchains\cargo`. Rust is not added to the global PATH; build shells must set `RUSTUP_HOME` and `CARGO_HOME`.
+- WebView2 runtime is present.
+- Svelte/Vite production frontend build succeeds. Complete npm dependency audit reports 0 vulnerabilities after the `follow-redirects` fix.
 
-## What prevents a native run
+## Still blocking a native build
 
-Tauri's Windows setup requires Microsoft C++ Build Tools and WebView2; Rust with the MSVC target is also required. WebView2 is present, but the C++ toolchain/SDK are missing and Rust installation timed out. The project also needs LLVM/Clang, CMake and Ninja for its Whisper native dependency. See [Tauri Windows prerequisites](https://v2.tauri.app/start/prerequisites/).
+- LLVM/Clang and `libclang.dll` are absent. The repository's Whisper native build requires them.
+- Visual Studio Installer attempts to add `Microsoft.VisualStudio.Component.VC.Llvm.Clang` failed with access denied while writing `%APPDATA%\Visual Studio Setup\user.json`; the attempted installer process was not elevated.
+- `cargo check --manifest-path src-tauri/Cargo.toml` reached dependency retrieval but could not fetch crates: Windows Schannel returned `SEC_E_NO_CREDENTIALS`. Retrying after granting this task network access produced the same error.
+- The browser preview is not a desktop runtime: Tauri audio capture and window controls are unavailable there.
 
-A successful frontend build does not validate audio capture, Whisper, overlays, or Windows 10 compatibility. Do not treat the current browser preview as a successful desktop smoke test.
+Tauri's Windows setup requires Microsoft C++ Build Tools, WebView2 and Rust. These are present; this alone does not validate the project's native build. See [Tauri Windows prerequisites](https://v2.tauri.app/start/prerequisites/).
 
-## Next environment step
+## Next steps
 
-Install Visual Studio Build Tools with the “Desktop development with C++” workload and a Windows 10/11 SDK, then resume rustup in the project-local toolchain directory. Add CMake, Ninja and LLVM/Clang with libclang, and rerun a native Tauri development launch. The Visual Studio workload installer may require administrator rights and license acceptance, so it was not launched unattended.
+1. In Visual Studio Installer, modify the Community 2026 instance and add **C++ Clang compiler for Windows** (the LLVM/Clang component). The automated modification was blocked by this machine's sandboxed installer context.
+2. Resolve Cargo's TLS credential/network error, then run `cargo check` and `npm run tauri dev` from an x64 Visual Studio developer environment.
+3. Only a successful native launch can confirm the audio, overlay and Windows 10 runtime paths.
