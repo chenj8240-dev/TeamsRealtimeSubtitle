@@ -398,6 +398,9 @@ pub mod events {
     /// Deliberately separate from `STATUS`: a preflight audio test is not a session, and
     /// must never move the operator UI's session state machine.
     pub const AUDIO_TEST: &str = "audio-test";
+    /// Capture backend state: scope, device, format and phase. Payload is
+    /// `audio::backend::CaptureStatus`, emitted by `session::capture`.
+    pub const CAPTURE_STATUS: &str = "capture-status";
     /// The operator tried to close the window while something was still unsaved or running,
     /// and the core held the window open for an answer. See `lifecycle::CloseGuard`.
     pub const CLOSE_REQUESTED: &str = "close-requested";

@@ -11,6 +11,7 @@ use anyhow::Result;
 use tokio::sync::mpsc::Sender;
 use tokio_util::sync::CancellationToken;
 
+use crate::audio::backend::CaptureStatus;
 use crate::types::AudioLevel;
 
 #[cfg(not(windows))]
@@ -20,6 +21,7 @@ pub fn run_system_loopback(
     _target_rate: u32,
     _level_tx: Sender<AudioLevel>,
     _chunk_tx: crate::audio::sink::AudioSink,
+    _status_tx: Option<&Sender<CaptureStatus>>,
     _cancel: &CancellationToken,
 ) -> Result<()> {
     anyhow::bail!("System (loopback) capture is only supported on Windows in this build")
@@ -32,9 +34,18 @@ pub fn run_system_loopback(
     target_rate: u32,
     level_tx: Sender<AudioLevel>,
     chunk_tx: crate::audio::sink::AudioSink,
+    status_tx: Option<&Sender<CaptureStatus>>,
     cancel: &CancellationToken,
 ) -> Result<()> {
-    windows_impl::run(device_id, capture, target_rate, level_tx, chunk_tx, cancel)
+    windows_impl::run(
+        device_id,
+        capture,
+        target_rate,
+        level_tx,
+        chunk_tx,
+        status_tx,
+        cancel,
+    )
 }
 
 #[cfg(windows)]
@@ -48,6 +59,9 @@ mod windows_impl {
     use wasapi::{DeviceEnumerator, Direction, SampleType, StreamMode, WaveFormat};
 
     use crate::audio::applications::{ProcessGuard, ProcessIdentity, SystemCapture};
+    use crate::audio::backend::{
+        publish_status, CaptureEncoding, CaptureFormat, CapturePhase, CaptureScope, CaptureStatus,
+    };
     use crate::audio::capture::CaptureState;
     use crate::audio::com::Apartment;
     use crate::audio::devices::PresenceCheck;
@@ -72,23 +86,41 @@ mod windows_impl {
         target_rate: u32,
         level_tx: Sender<AudioLevel>,
         chunk_tx: crate::audio::sink::AudioSink,
+        status_tx: Option<&Sender<CaptureStatus>>,
         cancel: &CancellationToken,
     ) -> Result<()> {
         // COM must be initialised on the capture thread, and left only after every COM
         // object below is released.
         let _apartment = Apartment::mta().context("failed to initialise COM (MTA)")?;
 
+        let scope = match &capture {
+            SystemCapture::Output => CaptureScope::DeviceMix,
+            SystemCapture::Application { .. } => CaptureScope::Application,
+        };
+        let process = match &capture {
+            SystemCapture::Application { process } => process.clone(),
+            SystemCapture::Output => None,
+        };
+
         let Source {
             device,
-            process,
+            process: process_guard,
             mut client,
             format,
             period,
+            device_name,
         } = match capture {
             SystemCapture::Output => Source::output(device_id)?,
             SystemCapture::Application { process } => Source::application(process)?,
         };
         let (event, mut reader) = start(&mut client, &format, period)?;
+
+        let status = CaptureStatus::new(Origin::System, scope)
+            .with_optional_device_name(device_name)
+            .with_process(process)
+            .with_format(capture_format(&format))
+            .with_phase(CapturePhase::Active);
+        publish_status(status_tx, &status);
 
         let mut state =
             CaptureState::new(Origin::System, reader.rate, target_rate, level_tx, chunk_tx);
@@ -97,7 +129,7 @@ mod windows_impl {
         let mut presence = PresenceCheck::new(Duration::from_secs(1));
 
         while !cancel.is_cancelled() {
-            ensure_present(device.as_ref(), process.as_ref(), &mut presence)?;
+            ensure_present(device.as_ref(), process_guard.as_ref(), &mut presence)?;
             reader.forward(&mut state)?;
 
             // Wake on the audio event; short timeout keeps cancellation responsive.
@@ -111,6 +143,21 @@ mod windows_impl {
         Ok(())
     }
 
+    /// Translate the endpoint's format into the generic capture contract.
+    fn capture_format(format: &WaveFormat) -> CaptureFormat {
+        let encoding = match format.get_subformat() {
+            Ok(SampleType::Float) => CaptureEncoding::Float,
+            Ok(SampleType::Int) => CaptureEncoding::Int,
+            _ => CaptureEncoding::Unknown,
+        };
+        CaptureFormat::new(
+            format.get_samplespersec(),
+            format.get_nchannels(),
+            format.get_bitspersample(),
+            encoding,
+        )
+    }
+
     /// What loopback captures, and the client, format and buffer duration it opens with.
     struct Source {
         /// The output endpoint, watched for removal. `None` when capturing an application.
@@ -121,6 +168,8 @@ mod windows_impl {
         format: WaveFormat,
         /// In 100 ns units.
         period: i64,
+        /// Friendly endpoint name for the status event; absent for a process client.
+        device_name: Option<String>,
     }
 
     impl Source {
@@ -139,6 +188,7 @@ mod windows_impl {
                 device.get_direction() == Direction::Render,
                 "selected device is not an output endpoint"
             );
+            let device_name = device.get_friendlyname().ok();
             let client = device
                 .get_iaudioclient()
                 .ctx("failed to get IAudioClient")?;
@@ -152,6 +202,7 @@ mod windows_impl {
                 client,
                 format,
                 period,
+                device_name,
             })
         }
 
@@ -169,6 +220,7 @@ mod windows_impl {
                 client,
                 format,
                 period: 200_000,
+                device_name: None,
             })
         }
     }
@@ -307,6 +359,20 @@ mod windows_impl {
                 }
                 tracing::warn!("unsupported loopback sample format: {ty:?}/{b}-bit");
             }
+        }
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn wasapi_format_maps_to_generic_fields() {
+            let format = WaveFormat::new(32, 32, &SampleType::Float, 48_000, 2, None);
+            assert_eq!(
+                capture_format(&format),
+                CaptureFormat::new(48_000, 2, 32, CaptureEncoding::Float)
+            );
         }
     }
 }

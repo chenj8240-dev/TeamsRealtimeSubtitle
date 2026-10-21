@@ -10,7 +10,7 @@ use tauri::AppHandle;
 use tokio::sync::mpsc::{channel, error::TrySendError, Receiver, Sender};
 use tokio_util::sync::CancellationToken;
 
-use super::capture::{report_source_failure, CaptureTarget};
+use super::capture::{report_source_failure, spawn_status_forwarder, CaptureTarget};
 use super::options::caption_languages;
 use super::settings::ProviderSettings;
 use super::ActiveSession;
@@ -228,10 +228,18 @@ impl SessionBuilder<'_> {
             }
             None => {
                 let capture = self.capture.clone();
+                let status_tx = spawn_status_forwarder(&app);
                 let handle = std::thread::Builder::new()
                     .name(format!("capture-{origin:?}"))
                     .spawn(move || {
-                        let result = capture.run(origin, target_rate, level_tx, audio_tx, &cancel);
+                        let result = capture.run(
+                            origin,
+                            target_rate,
+                            level_tx,
+                            audio_tx,
+                            Some(&status_tx),
+                            &cancel,
+                        );
                         finish_producer(result, capture_completion.as_mut(), &app, origin, &cancel);
                     })
                     .context("failed to spawn capture thread")?;

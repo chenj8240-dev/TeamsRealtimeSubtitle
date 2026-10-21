@@ -12,6 +12,9 @@ use cpal::{FromSample, Sample, SampleFormat, SizedSample, I24, U24};
 use tokio::sync::mpsc::{error::TrySendError, Sender};
 use tokio_util::sync::CancellationToken;
 
+use super::backend::{
+    publish_status, CaptureEncoding, CaptureFormat, CapturePhase, CaptureScope, CaptureStatus,
+};
 use super::devices::PresenceCheck;
 use super::resample::{downmix_to_mono, f32_to_pcm16_le, f64_to_f32, Resampler};
 use super::{chunk_samples, AudioChunk};
@@ -106,12 +109,22 @@ pub fn run_microphone(
     target_rate: u32,
     level_tx: Sender<AudioLevel>,
     chunk_tx: super::sink::AudioSink,
+    status_tx: Option<&Sender<CaptureStatus>>,
     cancel: &CancellationToken,
 ) -> Result<()> {
     let device = pick_device(device_name)?;
     let config = device
         .default_input_config()
         .context("failed to read default input config")?;
+
+    let status = CaptureStatus::new(Origin::Microphone, CaptureScope::Microphone)
+        .with_device_name(device.to_string())
+        .with_format(capture_format(
+            config.sample_format(),
+            config.sample_rate(),
+            config.channels(),
+        ))
+        .with_phase(CapturePhase::Active);
 
     // Per-stream state captured by the callback.
     let state = CaptureState::new(
@@ -132,6 +145,7 @@ pub fn run_microphone(
 
     let stream = open_stream(&device, config, state, err_fn)?;
     stream.play().context("failed to start microphone stream")?;
+    publish_status(status_tx, &status);
     wait_while_present(&device, cancel)?;
 
     tracing::info!("microphone capture stopped");
@@ -139,6 +153,25 @@ pub fn run_microphone(
         Ok(error) => Err(error),
         Err(_) => Ok(()),
     }
+}
+
+/// Translate cpal's platform sample description into the generic capture contract.
+fn capture_format(
+    sample_format: cpal::SampleFormat,
+    sample_rate: u32,
+    channels: u16,
+) -> CaptureFormat {
+    let (bits_per_sample, encoding) = match sample_format {
+        cpal::SampleFormat::F32 => (32, CaptureEncoding::Float),
+        cpal::SampleFormat::F64 => (64, CaptureEncoding::Float),
+        cpal::SampleFormat::I8 | cpal::SampleFormat::U8 => (8, CaptureEncoding::Int),
+        cpal::SampleFormat::I16 | cpal::SampleFormat::U16 => (16, CaptureEncoding::Int),
+        cpal::SampleFormat::I24 | cpal::SampleFormat::U24 => (24, CaptureEncoding::Int),
+        cpal::SampleFormat::I32 | cpal::SampleFormat::U32 => (32, CaptureEncoding::Int),
+        cpal::SampleFormat::I64 | cpal::SampleFormat::U64 => (64, CaptureEncoding::Int),
+        _ => (0, CaptureEncoding::Unknown),
+    };
+    CaptureFormat::new(sample_rate, channels, bits_per_sample, encoding)
 }
 
 /// Open `device` in its default format, feeding every buffer it delivers to `state`.
@@ -374,6 +407,18 @@ impl Drop for CaptureState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn capture_format_maps_cpal_samples_to_generic_fields() {
+        assert_eq!(
+            capture_format(cpal::SampleFormat::F32, 48_000, 2),
+            CaptureFormat::new(48_000, 2, 32, CaptureEncoding::Float)
+        );
+        assert_eq!(
+            capture_format(cpal::SampleFormat::I24, 44_100, 1),
+            CaptureFormat::new(44_100, 1, 24, CaptureEncoding::Int)
+        );
+    }
 
     #[test]
     fn quality_notifications_keep_capture_alive_but_device_failures_stop_it() {

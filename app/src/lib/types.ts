@@ -385,14 +385,16 @@ export interface OverlayStateMsg {
 export const TRAY_COMMANDS = ['toggle-overlay', 'stop-session', 'quit'] as const;
 export type TrayCommand = (typeof TRAY_COMMANDS)[number];
 
-/** Event names. Rust→front-end: caption/level/status/closeRequested/trayCommand.
- *  Operator→overlay: overlayConfig. Overlay→operator: overlayState. */
+/** Event names. Rust→front-end: caption/level/status/audioTest/captureStatus/
+ *  closeRequested/trayCommand. Operator→overlay: overlayConfig. Overlay→operator: overlayState. */
 export const EVT = {
 	whisperProgress: 'whisper-progress',
 	caption: 'caption',
 	level: 'audio-level',
 	status: 'status',
 	audioTest: 'audio-test',
+	/** Capture backend scope/device/format/phase; see `CaptureStatus` in audio/backend.rs. */
+	captureStatus: 'capture-status',
 	devicesChanged: 'audio-devices-changed',
 	closeRequested: 'close-requested',
 	trayCommand: 'tray-command',

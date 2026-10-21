@@ -6,6 +6,7 @@
 //! `fixture` is a third source of the same stream, standing in for a capture device: it plays
 //! a bundled recording so rehearsal mode exercises the pipeline with no audio hardware at all.
 
+pub mod backend;
 pub mod capture;
 // The COM guard for the threads `devices` and `loopback` spawn to use WASAPI directly.
 #[cfg(windows)]

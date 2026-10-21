@@ -9,7 +9,9 @@ use tokio::sync::mpsc::channel;
 use tokio_util::sync::CancellationToken;
 
 use super::builder::AUDIO_CHANNEL_CAPACITY;
-use super::capture::{join_threads, source_failure, spawn_level_forwarder, CaptureTarget};
+use super::capture::{
+    join_threads, source_failure, spawn_level_forwarder, spawn_status_forwarder, CaptureTarget,
+};
 use super::options::live_origins;
 use super::{lock, SessionManager};
 use crate::audio::applications::SystemCapture;
@@ -79,6 +81,7 @@ impl SessionManager {
         let cancel = CancellationToken::new();
         let cancel_guard = cancel.clone().drop_guard();
         let level_tx = spawn_level_forwarder(app);
+        let status_tx = spawn_status_forwarder(app);
         let capture = CaptureTarget {
             mic_name: mic_device_name,
             system_id: system_device_id,
@@ -97,6 +100,7 @@ impl SessionManager {
             // A preflight is one test: failure on either source stops both devices.
             let probe_cancel = cancel.clone();
             let level_tx = level_tx.clone();
+            let status_tx = status_tx.clone();
             let capture = capture.clone();
             let (start_tx, start_rx) = std::sync::mpsc::channel();
             let handle = std::thread::Builder::new()
@@ -112,6 +116,7 @@ impl SessionManager {
                         TEST_SAMPLE_RATE,
                         level_tx,
                         audio_tx.into(),
+                        Some(&status_tx),
                         &probe_cancel,
                     );
                     complete_probe(result, origin, &probe_cancel, |update| {
