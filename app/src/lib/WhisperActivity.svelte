@@ -6,7 +6,9 @@
 	import { asStatus } from './errors';
 	import {
 		noteWhisperProgress,
+		whisperDroppedSeconds as dropped,
 		whisperFinalizing as finalizing,
+		whisperLagging as lagging,
 		whisperPendingSeconds as pending,
 		whisperProgress
 	} from './whisperProgress';
@@ -48,9 +50,10 @@
 	}
 </script>
 
-{#if $isRunning && ($pending > 0 || $finalizing)}
+{#if $isRunning && ($pending > 0 || $finalizing || $lagging || $dropped > 0)}
 	<div class="local-progress" role="status">
 		<span>{$finalizing ? $t.whisper.processing : $t.whisper.pending} · {$pending} s</span>
+		{#if $lagging || $dropped > 0}<span>{$t.whisper.lagging($dropped)}</span>{/if}
 		{#if $finalizing && $pending > 0}
 			<ToolButton onclick={() => (confirmDiscard = true)}>{$t.whisper.discard}</ToolButton>
 		{/if}
@@ -74,6 +77,7 @@
 	}
 	.local-progress {
 		display: flex;
+		flex-wrap: wrap;
 		gap: var(--space-3);
 		align-items: center;
 		justify-content: space-between;

@@ -65,10 +65,9 @@ The front-end does not render this event yet; T08 will surface the device and sc
 
 The capture path never opens a WAV/MP3 file or writes a recording. Realtime audio uses a
 bounded channel of 5 × 100 ms chunks; the local writer uses a bounded queue of 300 chunks;
-levels use a channel of 8. The existing local Whisper sink uses an anonymous
-delete-on-close spool for a long inference backlog. It is not a WAV/MP3, is unchanged by
-T02, and remains T05's decision; the capture interface itself only sees the bounded
-`AudioSink`.
+levels use a channel of 8. T04 replaced the old anonymous on-disk spool with the bounded
+in-memory [frame queue](audio-framing-vad.md); the capture interface itself only sees the
+bounded `AudioSink`.
 
 ## Verification
 

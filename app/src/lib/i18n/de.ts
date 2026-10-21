@@ -188,10 +188,14 @@ export const de: Messages = {
 		missing: 'Laden Sie vor dem Start ein Modell herunter.',
 		downloading: 'Modell wird heruntergeladen…',
 		privacy:
-			'Audio wird auf diesem Computer verarbeitet. Ausstehendes Audio wird vorübergehend in einer Datei gespeichert, die nach der Verarbeitung gelöscht wird. Keine API-Kosten.',
+			'Audio wird auf diesem Computer verarbeitet. Ausstehendes Audio liegt in einem begrenzten Speicherpuffer; gerät die Verarbeitung ins Hintertreffen, wird das älteste Audio verworfen. Keine API-Kosten.',
 		hint: 'Die Modelle unterstützen 99 Sprachen. Genauigkeit und Geschwindigkeit hängen von Sprache und Computer ab.',
 		processing: 'Transkript wird fertiggestellt…',
 		pending: 'Noch zu verarbeitendes Audio',
+		lagging: (dropped: number) =>
+			dropped > 0
+				? `Die Verarbeitung hinkt hinterher; ${dropped} s altes Audio wurden verworfen`
+				: 'Die Verarbeitung hinkt hinterher; das neueste Audio bleibt erhalten',
 		discard: 'Restliches Audio verwerfen',
 		discardConfirm:
 			'Restliches Audio verwerfen? Bereits erstellte Untertitel bleiben erhalten, das Transkript wird jedoch unvollständig.',

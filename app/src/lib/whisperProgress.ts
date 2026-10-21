@@ -18,6 +18,16 @@ export const whisperFinalizing = derived(whisperProgress, (progress) =>
 	Object.values(progress).some((p) => p.finalizing)
 );
 
+/** The larger dropped backlog, in whole seconds rounded up. */
+export const whisperDroppedSeconds = derived(whisperProgress, (progress) =>
+	Math.ceil(Math.max(0, ...Object.values(progress).map((p) => p.droppedMs ?? 0)) / 1000)
+);
+
+/** Some source is behind, so it is keeping the newest audio and dropping older audio. */
+export const whisperLagging = derived(whisperProgress, (progress) =>
+	Object.values(progress).some((p) => p.lagging)
+);
+
 export function noteWhisperProgress(update: WhisperProgress) {
 	whisperProgress.update((progress) => ({ ...progress, [update.origin]: update }));
 }

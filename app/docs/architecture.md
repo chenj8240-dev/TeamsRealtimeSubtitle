@@ -7,7 +7,7 @@ microphone / system / application audio
                   │
           resampling + PCM16
                   ├── cloud WebSocket client(s) ──────────────┐
-                  └── temporary spool → Whisper CPU worker ──┤
+                  └── bounded frame queue → Whisper CPU worker ──┤
 scripted demo ───────── deterministic caption timeline ──────┤
                                                              ▼
                                               operator + caption overlay
@@ -30,8 +30,8 @@ scripted demo ───────── deterministic caption timeline ──�
    paths on x64 and ARM64. It is presented as a demonstration, not speech recognition.
 4. **Local Whisper.** The `whisper` provider (subtitles) and `whisper-translate` (translation
    into English, whisper.cpp's translate task) share one pipeline, `Provider::is_local_whisper`:
-   16 kHz PCM16, a bounded writer queue, an anonymous temporary audio file and a separate CPU
-   inference worker per source. A verified multilingual model context is shared, and the
+   16 kHz PCM16, a bounded in-memory frame queue and a separate CPU inference worker per
+   source. A verified multilingual model context is shared, and the
    sources take turns at inference on it; each source owns its inference state. Capture
    timestamps travel with the audio, so a slow recognizer preserves meeting timing. ggml is
    compiled for AVX2 on x64 and for dot-product on ARM64, so `whisper/cpu.rs` refuses an older
@@ -46,7 +46,7 @@ interleaves the microphone and the system agrees with itself about what happened
 monotonic elapsed time rather than the audio timeline, because cloud clients drop stale
 buffered audio before reconnecting and an audio clock would lose every gap where the socket was
 down. `realtime::emit_caption` applies it for cloud protocols and the demonstration. Whisper
-stamps segments from capture timestamps carried through its spool, so CPU backlog does not
+stamps segments from capture timestamps carried through its queue, so CPU backlog does not
 shift the transcript to the later inference time.
 
 Protocol handlers are pure: `handle_message` parses one server message into the turn
@@ -441,7 +441,7 @@ Provider authentication happens in Rust. Each optional key has its own Windows C
 Manager entry, with an environment-variable fallback, and never enters the Svelte renderer,
 whose content-security policy blocks direct connections. Only debug builds load `.env` or
 honour the `*_WS_HOST` host overrides. Local Whisper sends no audio over the network and
-deletes its temporary audio file on close; its pinned model downloads are integrity-checked and
+keeps pending audio in bounded memory rather than a file; its pinned model downloads are integrity-checked and
 available only to the operator window. The built-in demo opens no audio device, uses no
 network and needs no credential. The developer operates no backend, relay, telemetry,
 analytics or crash-reporting service. See [`SECURITY.md`](../SECURITY.md) and the

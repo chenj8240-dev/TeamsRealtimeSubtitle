@@ -182,10 +182,14 @@ export const en = {
 		missing: 'Download a model before starting.',
 		downloading: 'Downloading model…',
 		privacy:
-			'Audio is processed on this computer. Pending audio uses a temporary file, deleted when processing ends. No API charges.',
+			'Audio is processed on this computer. Pending audio is held in a bounded memory buffer; if processing falls behind, the oldest audio is dropped. No API charges.',
 		hint: 'Models support 99 languages. Accuracy and processing speed vary by language and computer.',
 		processing: 'Finishing the transcript…',
 		pending: 'Audio waiting to be processed',
+		lagging: (dropped: number) =>
+			dropped > 0
+				? `Processing is behind; ${dropped} s of old audio was dropped`
+				: 'Processing is behind; the newest audio is kept',
 		discard: 'Discard remaining audio',
 		discardConfirm:
 			'Discard the remaining audio? Captions already produced will be kept, but the transcript will be incomplete.',

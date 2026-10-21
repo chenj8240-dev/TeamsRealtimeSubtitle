@@ -105,13 +105,14 @@ Limits worth knowing before an event:
 
 ## Audio handling and limits
 
-Capture produces about 100 ms of 16 kHz mono PCM16 per frame. A bounded queue gives the disk
-writer 30 seconds of scheduling slack. The inference worker reads an anonymous local temporary
-file rather than the cloud clients’ low-latency queues, so delayed recognition does not
-trigger their stale-audio discard. Buffering is bounded to 2 GiB per source (roughly 18 hours
-of audio without the reader catching up and resetting the file); disk-full, I/O failure and
-writer overflow stop the source and report that its transcript may be incomplete. Memory does
-not grow with the audio backlog.
+Capture produces about 100 ms of 16 kHz mono PCM16 per frame. A bounded queue gives the local
+writer 30 seconds of scheduling slack. The inference worker reads a bounded in-memory frame
+queue rather than the cloud clients’ low-latency queues, so delayed recognition does not
+trigger their stale-audio discard. Buffering is capped at about 120 seconds / 3.84 MB per
+source; when a slower recognizer falls further behind, the oldest queued audio is dropped so
+the live edge keeps moving. `whisper-progress` reports dropped milliseconds and a lagging
+flag, and the operator UI shows them. Memory does not grow with the audio backlog, and no
+audio file is created.
 
 Recognition uses windows of up to roughly 10 seconds, one second of overlap and conservative
 silence endpointing. It produces finalized captions, not speculative word-by-word interim
@@ -142,12 +143,12 @@ that produced captions, because a second or two of audio is where detection is l
 and most likely to turn a phrase into the other language. A chosen spoken language is always
 used as chosen.
 
-Pause stops new audio entering transcription or its temporary file, while the existing backlog
+Pause stops new audio entering transcription or its bounded queue, while the existing backlog
 continues processing. When no new audio has arrived for a second — after Pause, or when system
 audio goes quiet because nothing is playing — the audio already held is transcribed straight
 away instead of waiting for more. Normal Stop drains input and the final partial window
 without the cloud pipeline’s five-second limit. An explicit discard token interrupts
-inference. Temporary audio is delete-on-close and cannot be recovered after the process exits;
+inference. Queued audio lives only in memory and cannot be recovered after the process exits;
 see [privacy](privacy.md).
 
 Inference uses about half the logical processors on x64 (one thread per core, assuming
@@ -221,10 +222,10 @@ cargo test --locked --all-features local_whisper_smoke -- --ignored --nocapture
 ```
 
 Unit tests cover language vocabulary, corrupt model rejection, active-model protection,
-writer overflow, pause filtering, final-tail handling, timestamp gaps and producer failure
-ordering; the processor check; downloads against a loopback HTTP server (verified install,
+queue overflow/drop accounting, pause filtering, final-tail handling, timestamp gaps and producer
+failure ordering; the processor check; downloads against a loopback HTTP server (verified install,
 hash mismatch, oversized body, stalled connection, cancellation, partial-file clean-up); the
-spool's idle signal and size limit; the segmenter's gap threshold, jittered and drifting
+queue's idle signal, drop and lag status; the segmenter's gap threshold, jittered and drifting
 timestamps, long windows and idle flush; segment reconciliation (overlap by word and by
 character, clamped and monotonic times, broken UTF-8, the no-speech filter); short-window
 language reuse; thread counts; and the translate task reaching whisper.cpp. Validation tests

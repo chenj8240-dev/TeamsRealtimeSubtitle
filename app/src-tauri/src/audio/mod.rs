@@ -8,6 +8,7 @@
 
 pub mod backend;
 pub mod capture;
+pub mod framing;
 // The COM guard for the threads `devices` and `loopback` spawn to use WASAPI directly.
 #[cfg(windows)]
 mod com;

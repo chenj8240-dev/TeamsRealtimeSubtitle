@@ -31,13 +31,12 @@ Application titles and process identities are used locally to select the source,
 to the speech provider. Cloud captioning does not write captured audio to disk.
 
 With **local Whisper**, audio is processed on the computer and is never uploaded. Pending audio
-is buffered in a temporary file so a slower recognizer can catch up without silently losing
-speech. This file is local, is not a saved recording, and is automatically deleted when its
-handle closes, including when the process exits. It is not an encrypted audio archive or a
-recoverable recording. Stop finishes the remaining audio; explicitly discarding the backlog,
-or closing the app before it has finished, keeps captions already produced but leaves the
-transcript incomplete. Pause excludes newly captured audio from recognition and temporary
-storage while metering remains active.
+is held in a bounded memory buffer so a slower recognizer can catch up; when the buffer is
+full, the oldest audio is dropped rather than written to disk. This is not a saved recording
+and cannot be recovered after the process exits. Stop finishes the remaining audio;
+explicitly discarding the backlog, or closing the app before it has finished, keeps captions
+already produced but leaves the transcript incomplete. Pause excludes newly captured audio
+from recognition and the queue while metering remains active.
 
 Whisper model files are downloaded only when the user chooses **Download model**. Downloads
 contact Hugging Face and its file-delivery infrastructure, which receive ordinary network

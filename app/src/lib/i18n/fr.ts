@@ -190,10 +190,14 @@ export const fr: Messages = {
 		missing: 'Téléchargez un modèle avant de démarrer.',
 		downloading: 'Téléchargement du modèle…',
 		privacy:
-			'Le son est traité sur cet ordinateur. Le son en attente est conservé dans un fichier temporaire, supprimé à la fin du traitement. Aucun frais d’API.',
+			'Le son est traité sur cet ordinateur. Le son en attente est conservé dans une mémoire tampon limitée\u00a0; si le traitement prend du retard, le son le plus ancien est abandonné. Aucun frais d’API.',
 		hint: 'Les modèles prennent en charge 99 langues. La précision et la vitesse varient selon la langue et l’ordinateur.',
 		processing: 'Finalisation de la transcription…',
 		pending: 'Son en attente de traitement',
+		lagging: (dropped: number) =>
+			dropped > 0
+				? `Le traitement est en retard\u00a0; ${dropped} s d’ancien son ont été abandonnées`
+				: 'Le traitement est en retard\u00a0; le son le plus récent est conservé',
 		discard: 'Abandonner le son restant',
 		discardConfirm:
 			'Abandonner le son restant ? Les sous-titres déjà produits seront conservés, mais la transcription sera incomplète.',

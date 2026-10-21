@@ -103,15 +103,20 @@ struct Progress {
     origin: Origin,
     pending_ms: u64,
     finalizing: bool,
+    dropped_ms: u64,
+    lagging: bool,
 }
 
 fn progress(app: &AppHandle, origin: Origin, spool: &Spool) {
+    let status = spool.status();
     let _ = app.emit(
         events::WHISPER_PROGRESS,
         Progress {
             origin,
-            pending_ms: spool.pending_ms(),
+            pending_ms: status.pending_ms,
             finalizing: spool.finalizing.load(Ordering::Relaxed),
+            dropped_ms: status.dropped_ms,
+            lagging: status.lagging,
         },
     );
 }

@@ -56,6 +56,10 @@ export interface WhisperProgress {
 	origin: Origin;
 	pendingMs: number;
 	finalizing: boolean;
+	/** Old audio dropped because the bounded queue filled; absent on older cores. */
+	droppedMs?: number;
+	/** The queue is over the lag threshold, so the live edge is being kept at the expense of old audio. */
+	lagging?: boolean;
 }
 /** Whether this processor can run the Whisper engine the app was built with (`whisper/cpu.rs`).
  *  `missing` names the absent instruction-set extensions, e.g. `AVX2`. */
