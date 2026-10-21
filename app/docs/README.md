@@ -26,6 +26,7 @@ The [6 October app review](app-review-2026-10-06.md) records the work in 1.7.0 a
 - [Architecture](architecture.md) and [native Whisper build requirements](local-whisper.md#building).
 - [Audio capture interface](audio-capture-interface.md): the T02 scope, status and backend contract.
 - [Audio framing and VAD](audio-framing-vad.md): the T04 bounded queue, silence gate and drop/lag status.
+- [Local Whisper acceptance](local-whisper-acceptance.md): the T05 Tiny-model fixture run and its limits.
 - Provider integration notes: [Gemini](gemini-live-api.md), [OpenAI](openai-realtime-api.md), [Mistral](mistral-realtime-api.md).
 - [Security policy](../SECURITY.md), [roadmap](../ROADMAP.md) and [release history](release-notes.md).
 

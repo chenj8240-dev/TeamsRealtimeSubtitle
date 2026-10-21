@@ -20,6 +20,7 @@
 - 上游已经实现 Windows 系统播放设备回环，以及在 Windows build 20348 及以上选择单个应用的能力；当前设备 build 19045 应使用系统设备混音模式。
 - 当前工作分支把新安装默认输入改为系统声音，并保持本机 Whisper 字幕；打开应用不会自动开始采集。
 - 上游 README 声明 Windows 11；本机已确认原生 debug 构建产物，用户确认手动启动，但安装包最低系统版本、浮层、退出和真实音频采集尚未验证。
+- T05 已用 pinned Tiny 模型跑通上游本机 Whisper：自带英/法 fixture 产生带时间戳的定稿字幕，T04 内存队列在 EOF 排空；真实会议、Base/Small 质量和中文翻译仍未验证，详见 [`local-whisper-acceptance.md`](app/docs/local-whisper-acceptance.md)。
 - 上游的本机 Whisper 翻译目标是英语；中文离线翻译尚未实现。本地模型选型与实现仍按 `AGENT_TASKS.md` 的 T06/T07 执行。
 - 本仓库保留原始上游许可与来源，见 [`UPSTREAM_AUDIT.md`](UPSTREAM_AUDIT.md)。
 
