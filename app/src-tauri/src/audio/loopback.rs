@@ -374,5 +374,127 @@ mod windows_impl {
                 CaptureFormat::new(48_000, 2, 32, CaptureEncoding::Float)
             );
         }
+
+        #[test]
+        fn float32_loopback_bytes_decode_to_samples() {
+            let mut bytes = VecDeque::from([
+                0x00, 0x00, 0x80, 0x3f, // 1.0
+                0x00, 0x00, 0x00, 0xbf, // -0.5
+            ]);
+            let mut out = Vec::new();
+            decode_interleaved(&mut bytes, SampleType::Float, 32, &mut out);
+            assert_eq!(out, vec![1.0, -0.5]);
+        }
+
+        #[test]
+        fn int16_and_int32_loopback_bytes_scale_to_unit_range() {
+            let mut bytes = VecDeque::from([
+                0x00, 0x40, // 16384 -> 0.5
+                0x00, 0x80, // -32768 -> -1.0
+            ]);
+            let mut out = Vec::new();
+            decode_interleaved(&mut bytes, SampleType::Int, 16, &mut out);
+            assert_eq!(out, vec![0.5, -1.0]);
+
+            let mut bytes = VecDeque::from([
+                0x00, 0x00, 0x00, 0x40, // 0x40000000 -> 0.5
+                0x00, 0x00, 0x00, 0x80, // i32::MIN -> -1.0
+            ]);
+            let mut out = Vec::new();
+            decode_interleaved(&mut bytes, SampleType::Int, 32, &mut out);
+            assert_eq!(out, vec![0.5, -1.0]);
+        }
+
+        #[test]
+        fn unsupported_loopback_format_emits_silence_without_panicking() {
+            let mut bytes = VecDeque::from([0u8; 6]);
+            let mut out = Vec::new();
+            decode_interleaved(&mut bytes, SampleType::Int, 24, &mut out);
+            assert_eq!(out, vec![0.0, 0.0]);
+        }
+
+        #[tokio::test]
+        #[ignore = "manual: needs a render endpoint and a controlled tone"]
+        async fn manual_loopback_captures_audio_energy() {
+            use std::time::Instant;
+
+            let seconds = std::env::var("LOOPBACK_PROBE_SECONDS")
+                .ok()
+                .and_then(|value| value.parse().ok())
+                .unwrap_or(5u64);
+            let device_id = std::env::var("LOOPBACK_PROBE_DEVICE").ok();
+            let (level_tx, mut level_rx) = tokio::sync::mpsc::channel(64);
+            let (audio_tx, mut audio_rx) = tokio::sync::mpsc::channel(8);
+            let (status_tx, mut status_rx) = tokio::sync::mpsc::channel::<CaptureStatus>(8);
+            let cancel = CancellationToken::new();
+            let thread_cancel = cancel.clone();
+            let handle = std::thread::spawn(move || {
+                run(
+                    device_id,
+                    SystemCapture::Output,
+                    16_000,
+                    level_tx,
+                    audio_tx.into(),
+                    Some(&status_tx),
+                    &thread_cancel,
+                )
+            });
+
+            let deadline = Instant::now() + Duration::from_secs(seconds);
+            let mut levels = 0u64;
+            let mut chunks = 0u64;
+            let mut max_rms = 0.0f32;
+            while Instant::now() < deadline {
+                while let Ok(status) = status_rx.try_recv() {
+                    println!("status {}", serde_json::to_string(&status).unwrap());
+                }
+                tokio::select! {
+                    maybe = level_rx.recv() => {
+                        if let Some(level) = maybe {
+                            levels += 1;
+                            max_rms = max_rms.max(level.rms);
+                        }
+                    }
+                    maybe = audio_rx.recv() => {
+                        if maybe.is_some() {
+                            chunks += 1;
+                        }
+                    }
+                    _ = tokio::time::sleep(Duration::from_millis(50)) => {}
+                }
+            }
+            cancel.cancel();
+            handle
+                .join()
+                .expect("capture thread panicked")
+                .expect("capture failed");
+            while let Ok(level) = level_rx.try_recv() {
+                levels += 1;
+                max_rms = max_rms.max(level.rms);
+            }
+            while let Ok(chunk) = audio_rx.try_recv() {
+                if !chunk.pcm_le.is_empty() {
+                    chunks += 1;
+                }
+            }
+            while let Ok(status) = status_rx.try_recv() {
+                println!("status {}", serde_json::to_string(&status).unwrap());
+            }
+            println!("manual loopback: levels={levels} chunks={chunks} max_rms={max_rms:.4}");
+            assert!(levels > 0, "no level updates observed");
+            assert!(chunks > 0, "no audio chunks observed");
+            assert!(
+                max_rms > 0.001,
+                "no audio energy observed; play a controlled tone"
+            );
+            assert!(
+                level_rx.try_recv().is_err(),
+                "levels kept arriving after the capture thread stopped"
+            );
+            assert!(
+                audio_rx.try_recv().is_err(),
+                "audio kept arriving after the capture thread stopped"
+            );
+        }
     }
 }

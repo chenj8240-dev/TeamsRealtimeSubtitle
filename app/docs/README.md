@@ -15,7 +15,7 @@ The [6 October app review](app-review-2026-10-06.md) records the work in 1.7.0 a
 - [Local Whisper](local-whisper.md): models, languages, offline setup, translation into English,
   pending audio and Stop.
 - [Language coverage](language-coverage.md): translation targets, spoken-language selection and verification limits.
-- [Audio checks](audio-device-testing.md) and [application capture](application-capture.md).
+- [Audio checks](audio-device-testing.md), [application capture](application-capture.md) and the [Win10 WASAPI loopback record](win10-wasapi-loopback.md).
 - [Meeting controls and profiles](usability.md): Pause, two caption languages and shortcuts.
 - [Caption layout](caption-layout.md): overlay placement, reading modes and filler-word lists.
 - [Transcript export](transcript-export.md) and [optional history](transcript-history.md).

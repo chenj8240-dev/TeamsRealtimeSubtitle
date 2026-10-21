@@ -6,7 +6,8 @@ local Whisper as well as a cloud engine, including Pause and Stop with pending a
 
 1.7.0 makes three of these cases more pressing. System capture runs on wasapi 0.26, and its
 loopback runner was split into named steps with a shared COM guard; the maintainer tested system
-audio on ARM64 on 20 October 2026, and x64 is still to do. Microphones that deliver 24-bit
+audio on ARM64 on 20 October 2026, and T03 recorded a controlled x64 device-mix run on
+21 October 2026 (see [Win10 WASAPI loopback](win10-wasapi-loopback.md)). Microphones that deliver 24-bit
 samples, previously refused, now go through one generic stream builder. And Stop gives up on a
 capture thread after three seconds instead of waiting forever on a device that stops responding.
 
