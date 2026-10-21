@@ -23,7 +23,8 @@
 
 - `app/src/lib/startOptions.ts` 将全新安装的输入来源从麦克风改为系统播放声音；仍使用本机 Whisper 的原文字幕模式。打开应用不会自动启动采集或下载模型。
 - 已在应用 README 标明这是 Windows 10 适配中的个人分支、设备混音会包含其他声音、中文离线翻译尚未实现。
-- 该改动尚未通过构建或运行验证；当前环境 PATH 缺少 Rust/C++ 构建工具。
+- `d47d395` 在 Tauri 创建窗口前设置专用 `WEBVIEW2_USER_DATA_FOLDER`（默认 `%LOCALAPPDATA%\io.github.fmadore.live-translation\webview2-user-data`）；`d3393a3` 让 operator 窗口默认可见并在 setup 后前置显示。
+- 2026-10-21 复核：上述改动已进入原生 debug 构建（`app/src-tauri/target/debug/live-translation.exe`，26,608,640 bytes，2026-10-21 11:18:10）；用户确认手动启动后 operator 窗口可见。本次审计未重新构建，也未验证浮层、退出、安装包或音频。
 
 ## Win10 兼容性结论
 
@@ -34,12 +35,12 @@
 
 ## 当前本机开发环境观察
 
-- 已发现 Node.js 运行时和 pnpm 启动器。
-- 本次检查的 PATH 中未发现 `cargo`、`rustc`、`cl`、`cmake`、`clang`、`ninja` 或 `rustup`。因此当前环境还不能确认原生 Rust/Whisper 构建条件；T01 需检查完整安装路径。没有尝试安装这些系统工具。
-- 当前记录仅是文件/配置审查，没有运行应用、构建、测试或录制音频。
+- 2026-10-21 复核：Rust stable 1.99.1（MSVC）位于 `D:\Codex\.toolchains`（`RUSTUP_HOME`/`CARGO_HOME`），VS 2026 自带 clang-cl 22.1.3、CMake 4.3.1-msvc1 和 Ninja 1.13.2；Windows SDK 10.0.26100.0 位于 `D:\Windows Kits\10`。这些路径未加入全局 PATH，构建 shell 需显式设置。
+- 前端生产构建产物 `app/build` 存在（2026-10-20 14:47）；本机 WebView2 Runtime 为 155.0.4283.62。
+- 本次审计未重新运行 `cargo check` 或 native build；构建结论依据现有产物和前序记录。未运行应用、未测试音频或翻译，也未读取运行日志。
 
 ## 下一步
 
-- T01：在不改功能的情况下建立完整 Windows 构建环境清单，确认 `app` 可否在 Win10 编译和启动。
+- T01：构建与手动启动已确认；仍需在干净环境验证安装包、浮层、退出和窗口行为。
 - T02/T03：把设备混音明确设为 Win10 首选来源，并在本机验证 WASAPI 回环。
 - T06/T07：评估并实现本机中文翻译前，保持“本机原文字幕”和“本机 Whisper→英语”是仅有的离线路径；不要把云端能力标成本机。
