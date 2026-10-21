@@ -1,0 +1,9 @@
+[package]
+name = "qwen-translate-probe"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+anyhow = "1"
+ct2rs = { version = "0.10.2", default-features = false, features = ["ruy", "tokenizers"] }

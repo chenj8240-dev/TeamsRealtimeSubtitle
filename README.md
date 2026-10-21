@@ -22,7 +22,7 @@
 - 上游 README 声明 Windows 11；本机已确认原生 debug 构建产物，用户确认手动启动，但安装包最低系统版本、浮层、退出和真实音频采集尚未验证。
 - T05 已用 pinned Tiny 模型跑通上游本机 Whisper：自带英/法 fixture 产生带时间戳的定稿字幕，T04 内存队列在 EOF 排空；真实会议、Base/Small 质量和中文翻译仍未验证，详见 [`local-whisper-acceptance.md`](app/docs/local-whisper-acceptance.md)。
 - 上游的本机 Whisper 翻译目标是英语；中文离线翻译尚未实现。本地模型选型与实现仍按 `AGENT_TASKS.md` 的 T06/T07 执行。
-- T06 已完成本机中文翻译选型：Qwen2.5-0.5B-Instruct int8 实测约 0.27 s/句、473 MiB、Apache-2.0，作为 T07 首选；OPUS-MT en→zh（80 MB、34 ms）保留为快速后备；M2M100 已删除。详见 [LOCAL_TRANSLATION_EVALUATION.md](LOCAL_TRANSLATION_EVALUATION.md)；T07 尚未集成。
+- T06 已完成本机中文翻译选型：Qwen2.5-0.5B-Instruct int8 实测约 0.27 s/句、473 MiB、Apache-2.0；OPUS-MT en→zh（80 MB、34 ms）保留为快速后备；M2M100 已删除。T07 已完成 Rust/ct2rs 最小 probe，但 50 句门禁仅约 60% 通过、与 Whisper 并发延迟升至 3.5 s/句，暂不接 UI/默认路径。详见 [LOCAL_TRANSLATION_EVALUATION.md](LOCAL_TRANSLATION_EVALUATION.md) 与 [T07_LOCAL_TRANSLATION_INTEGRATION.md](T07_LOCAL_TRANSLATION_INTEGRATION.md)。
 - 本仓库保留原始上游许可与来源，见 [`UPSTREAM_AUDIT.md`](UPSTREAM_AUDIT.md)。
 
 上游开发环境和当前代码的构建说明见 [`app/README.md`](app/README.md)。T01 尚未完成安装包、浮层、退出和音频采集验收，不应把当前快照视为已支持 Windows 10 的完整安装程序。
