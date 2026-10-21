@@ -204,6 +204,7 @@ pub fn run() {
             // Before anything else: once a session is live, the tray is the only surface that
             // can stop it with the window hidden.
             tray::init(app.handle())?;
+            show_operator_window(app.handle());
 
             // Make the overlay click-through from the start so it floats over slides
             // without ever stealing a click. Toggle via `set_overlay_click_through`.
