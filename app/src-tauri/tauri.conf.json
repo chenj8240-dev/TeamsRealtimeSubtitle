@@ -24,8 +24,7 @@
         "minWidth": 980,
         "minHeight": 660,
         "resizable": true,
-        "center": true,
-        "dataDirectory": "webview2-data"
+        "center": true
       },
       {
         "label": "overlay",
@@ -40,8 +39,7 @@
         "skipTaskbar": true,
         "resizable": true,
         "focus": false,
-        "center": true,
-        "dataDirectory": "webview2-data"
+        "center": true
       }
     ]
   },
