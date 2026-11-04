@@ -31,7 +31,7 @@
 | work/T04-audio-framing-vad | bfa09d1 |
 | work/T05-local-whisper | 85fe08b |
 | work/T06-translation-eval | a47a11c |
-| work/T07-local-translation | d16e87d |
+| work/T07-local-translation | d16e87d（T07 probe）/ bf23842（终止记录） |
 
 ## 清理说明
 
