@@ -1,6 +1,6 @@
 # Windows 实时字幕与翻译工具
 
-> 状态：实施中（T00 上游基线已导入；T01 已确认本机原生构建，用户确认手动启动；安装包、浮层、退出和音频/翻译尚未验证）
+> 状态：**研发已终止（2026-11-04）**。T01–T05 已完成验证，T06/T07 仅完成评估与最小 probe；没有可发布的生产版本。构建产物和本地评测模型已清理，源码、Git 历史与开发文档保留。详见 [`PROJECT_RETIRED.md`](PROJECT_RETIRED.md)。
 >
 > 代码基础：[`fmadore/Live-translation`](https://github.com/fmadore/Live-translation)，MIT License
 >
